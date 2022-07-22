@@ -638,7 +638,8 @@ function MAGNATA_ACTIVE()
                     end
                 end)
             end
-            function botoes:CreateToggle(title, callback, cc)
+            function botoes:CreateToggle(title, callback, cc, cc2)
+                cc2 = cc2 or Color3.fromRGB(203, 145, 203)
                 cc = cc or Color3.fromRGB(255, 255, 255)
                 if typeof(cc) ~= 'Color3' then cc = Color3.fromRGB(255, 255, 255) end
                 local Toggle = Instance.new("TextLabel")
@@ -680,6 +681,7 @@ function MAGNATA_ACTIVE()
                 toggleTexto.TextColor3 = Color3.fromRGB(255, 255, 255)
                 toggleTexto.TextSize = 14.000
                 toggleTexto.TextXAlignment = Enum.TextXAlignment.Left
+                toggleTexto.TextColor3 = cc
                 toggleTexto.Text = title
 
                 local toggled = false
@@ -695,7 +697,7 @@ function MAGNATA_ACTIVE()
                     end
                     if toggled == true then
                         FrameToggle.Text = ''
-                        FrameToggle.BackgroundColor3 = Color3.fromRGB(203, 145, 203)
+                        FrameToggle.BackgroundColor3 = cc2
                     else
                         FrameToggle.BackgroundColor3 = Color3.fromRGB(38, 40, 38)
                     end
@@ -708,7 +710,8 @@ function MAGNATA_ACTIVE()
                     force('toggled')
                 end)
             end
-            function botoes:CreateSlider(title, min, max, callback, withnumber)
+            function botoes:CreateSlider(title, min, max, callback, withnumber, cc)
+                cc = cc or Color3.fromRGB(0, 255, 0)
                 withnumber = true
                 
                 local Slider = Instance.new("TextButton")
@@ -734,7 +737,7 @@ function MAGNATA_ACTIVE()
                 
                 SliderBackground.Name = "SliderBackground"
                 SliderBackground.Parent = Slider
-                SliderBackground.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+                SliderBackground.BackgroundColor3 = cc
                 SliderBackground.BorderSizePixel = 0
                 SliderBackground.Position = UDim2.new(0.0266666673, 0, 0.557692289, 0)
                 SliderBackground.Size = UDim2.new(0, 303, 0, 3)
@@ -1036,7 +1039,8 @@ function MAGNATA_ACTIVE()
                     force('toggled')
                 end)
             end
-            function botoes:CreateDropDown(title, tab, callback)
+            function botoes:CreateDropDown(title, tab, callback, cc)
+                cc = cc or Color3.fromRGB(255, 255, 255)
                 tab = tab or {}
                 local DropDown = Instance.new("TextLabel")
                 local ScrollingFramee = Instance.new("ScrollingFrame")    
@@ -1056,7 +1060,7 @@ function MAGNATA_ACTIVE()
                 DropDown.Size = UDim2.new(1, 0, 0, 18)
                 DropDown.Font = Enum.Font.RobotoCondensed
                 DropDown.Text = title
-                DropDown.TextColor3 = Color3.fromRGB(255, 255, 255)
+                DropDown.TextColor3 = cc
                 DropDown.TextSize = 14.000
                 DropDown.TextXAlignment = Enum.TextXAlignment.Left
                 DropDown.TextYAlignment = Enum.TextYAlignment.Top
@@ -1119,11 +1123,12 @@ function MAGNATA_ACTIVE()
                     Botao.Name = "Botao"
                     Botao.Parent = ScrollingFramee
                     Botao.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
+                    Botao.BackgroundTransparency = 1
                     Botao.BorderSizePixel = 0
                     Botao.Size = UDim2.new(0, 180, 0, 14)
                     Botao.Font = Enum.Font.RobotoCondensed
                     Botao.Text = title
-                    Botao.TextColor3 = Color3.fromRGB(255, 255, 255)
+                    Botao.TextColor3 = cc
                     Botao.TextSize = 14.000
                     Botao.MouseButton1Click:Connect(function()
                         toggle()
@@ -4495,42 +4500,23 @@ function MAGNATA_ACTIVE()
     
     local AimPart = 'HumanoidRootPart'
     
-    function AddAimbot(Aimbot)
-        Aimbot:CreateButton('Save aimbot settings', function()
-            writefile('Aimbot settings.lua', game:GetService('HttpService'):JSONEncode(AimbotConfig))
-            writefile('Aimpart.lua', game:GetService('HttpService'):JSONEncode({Parte = AimPart}))
-            
-        end)
-        Aimbot:CreateButton('Load aimbot settings', function()
-            local tabela = AimbotConfig
-        
-            local HttpService = game:GetService('HttpService')
-        
-            local sp = HttpService:JSONDecode(readfile('Aimbot settings.lua'))
-            local spp = HttpService:JSONDecode(readfile('Aimpart.lua'))
-        
-            tabela.AimbotOnline = sp.AimbotOnline
-            tabela.AimbotFovVisible = sp.AimbotFovVisible
-            tabela.AimbotFov = sp.AimbotFov
-            tabela.AimbotTeamCheck = sp.AimbotTeamCheck
-            AimPart = spp.Parte
-        end)
-        
+    function AddAimbot(Aimbot,cc)
+        cc = cc or Color3.fromRGB(0, 255, 0)
         Aimbot:CreateToggle('Aimbot', function(bool)
             AimbotConfig.AimbotOnline = bool;
-        end)
+        end, cc)
         
         Aimbot:CreateToggle('Fov Visible', function(bool)
             AimbotConfig.AimbotFovVisible = bool;
-        end)
+        end, cc)
         
         Aimbot:CreateToggle('Aimbot Team Check', function(bool)
             AimbotConfig.AimbotTeamCheck = bool
-        end)
+        end, cc)
         
         Aimbot:CreateSlider('Fov size', 10, 1200, function(fov)
             AimbotConfig.AimbotFov = fov;
-        end)
+        end, cc)
         
         Aimbot:CreateDropDown(
             'Aim part',
@@ -4566,28 +4552,13 @@ function MAGNATA_ACTIVE()
             },
             function(aim)
                 AimPart = aim
-            end
+            end,
+            cc
 
         )
 
 
-        Aimbot:CreateToggle('AimPart: Random - Loop', function(bool)
-            RandomPart = bool
-            spawn(function()
-                while RandomPart == true do
-                    if R15(game.Players.LocalPlayer) then
-                        local Partes = {'HumanoidRootPart','Head','UpperTorso','LowerTorso'}
-        
-                        AimPart = Partes[math.random(1, #Partes)]
-                    else
-                        local Partes = {'HumanoidRootPart','Head','Torso', 'Left Arm', 'Right Arm', 'Left Leg', 'Right Leg'}
-        
-                        AimPart = Partes[math.random(1, #Partes)]
-                    end
-                    wait(1)
-                end
-            end)
-        end)
+
         
         MethodAim = 'CFrame'
 
@@ -4605,7 +4576,8 @@ function MAGNATA_ACTIVE()
             },
             function(bool)
                 MethodAim = bool
-            end
+            end,
+            cc
         )
         
         Aimbot:CreateButton('Aimbot Key', function()
@@ -4624,7 +4596,7 @@ function MAGNATA_ACTIVE()
             repeat wait() until alreadyBindAimbot == true;
             alreadyBindAimbot = false;
             bind:Disconnect()
-        end)
+        end, cc)
         
         
         local UserInputService = game:GetService('UserInputService')
@@ -6085,6 +6057,7 @@ Notify('Sucess loaded cutscenes creator', 'made by me, '..discord_name, getImage
                     end
                 end
             end
+            local teleport_velo = 140
             function tp(vector, customvelo, isplayer, faltando)
                 if typeof(vector) == 'table' then
                     vector = Vector3.new(vector[1], vector[2], vector[3])
@@ -6092,14 +6065,6 @@ Notify('Sucess loaded cutscenes creator', 'made by me, '..discord_name, getImage
                 customvelo = customvelo or 5e4
                 faltando = faltando or false
                 isplayer = isplayer or false
-                if isplayer == true then
-                    Notify(
-                        'Follow Player',
-                        'Following '..target.DisplayName,
-                        nil,
-                        5
-                    )
-                end
                 abort = false
                 if customvelo == nil then
                     customvelo = 150000
@@ -6304,7 +6269,9 @@ Notify('Sucess loaded cutscenes creator', 'made by me, '..discord_name, getImage
                     Teleport(v[2])
                 end, Color3.fromRGB(255, 0, 0))
             end
-
+            b:CreateButton('Tomb', function()
+                Teleport(Vector3.new(603.8786010742188, 20.617717742919922, -474.2415771484375))
+            end, Color3.fromRGB(255, 0, 0))
             b:CreateButton('Auto airdrop', function()
             
             end, Color3.fromRGB(255,0,0))
@@ -6379,56 +6346,84 @@ Notify('Sucess loaded cutscenes creator', 'made by me, '..discord_name, getImage
                 end
             end, Color3.fromRGB(213, 235, 19))
 
+            b:CreateButton('Prison', function()
+                tp(Vector3.new(-1206.1026611328125, 51.30271530151367, -1759.5023193359375))
+                wait()
+                tp(Vector3.new(-1209.57373046875, 58.13632583618164, -1412.40087890625))
+                wait()
+                tp(Vector3.new(-1188.8558349609375, 18.405351638793945, -1395.9959716796875))
+                wait()
+                
+            end, Color3.fromRGB(213, 235, 19))
+
             b:CreateSpace(35)
 
             b:CreateTextLabel('Combat', Color3.fromRGB(48, 255, 73))
 
+            local armas = {}
+            local args = {
 
-            b:CreateWhile('Abrir loja de arma', function()
-                getRoot(speaker).CFrame = CFrame.new(7, 20, -1725)
-            end)     
+            }
+            for i,v in pairs(game:GetService("Workspace").Givers:GetChildren()) do
+                if v:FindFirstChild('Item') and v:FindFirstChild('ClickDetector') then
+                    if not table.find(armas, v.Item.Value) then
+                        armas[#armas + 1] = v.Item.Value
+                        args[#args + 1] = {
+                            v.Item.Value,
+                            v.ClickDetector
+                        }
+                        if v.Item.Value == 'HatPolice' then
+                            args[#args + 1] = {
+                                'Roupa normal',
+                                game:GetService("Workspace").ClothingRacks.ClothingRack.Hitbox.ClickDetector
+                            }
+                        end
+                    end
+                end
+            end
+
+            b:CreateDropDown(
+                'Puchar items',
+                args,
+                function(item)
+                    fireclickdetector(item)
+                end,
+                Color3.fromRGB(48, 255, 73)
+            )
+            local gun_open = false
+            
+            b:CreateButton('Open gun Shop | Abrir loja de arma', function()
+                gun_open = true
+
+                spawn(function()
+                    while gun_open == true do
+                        getRoot(speaker).CFrame = CFrame.new(7, 20, -1725)
+                        task.wait()
+                    end
+                end)
+            end, Color3.fromRGB(48, 255, 73))
+            b:CreateButton('Close gun Shop | Fechar loja de arma', function()
+                gun_open = false
+            end, Color3.fromRGB(48, 255, 73))           
+
+            
+
+            
+            b:CreateSlider('WalkSpeed', 16, 150, function(value)
+                walkspeed_value = value                          
+            end, false, Color3.fromRGB(48, 255, 73))
+            b:CreateSlider('JumpPower', 50, 200, function(value)
+                jumppower_value = value                          
+            end, false, Color3.fromRGB(48, 255, 73))            
             
 
             b:CreateSlider('Gravity', 0, 196.2, function(value)
                 workspace.Gravity = value
-            end, true)
-            b:CreateToggle('WalkSpeed', function(toggled)
-                walkspeed = toggled 
-                if walkspeed then
-                    task.spawn(function()
-                        correr = game.RunService.RenderStepped:Connect(function()
-                            getHumanoid(speaker).WalkSpeed = walkspeed_value
-                        end)
-                    end)
-                else
-                    correr:Disconnect()
-                    getHumanoid(speaker).WalkSpeed = 16
-                end
-            end)            
+            end, true, Color3.fromRGB(48, 255, 73))
 
-            b:CreateToggle('JumpPower', function(toggled)
-                jumppower = toggled 
-                if jumppower then
-                    task.spawn(function()
-                        pular = game.RunService.RenderStepped:Connect(function()
-                            getHumanoid(speaker).JumpPower = jumppower_value
-                        end)
-                    end)
-                else
-                    pular:Disconnect()
-                    getHumanoid(speaker).JumpPower = 50
-                end
-            end)
-            b:CreateSlider('JumpPower', 50, 200, function(value)
-                jumppower_value = value                          
-            end)
-            b:CreateSlider('WalkSpeed', 16, 150, function(value)
-                walkspeed_value = value                          
-            end)
-            b:CreateTextLabel('Visuals')
             local deleteLasers = false
             function delLaser(v)
-                if v.Name == 'BarbedWire' or v.Name == 'Shadow' or v.Name == 'Lasers' or v.Name == 'LasersMoving'or string.find(v.Name, 'LaserRooms') then
+                if v.Name == 'BarbedWire' or v.Name == 'Shadow' or v.Name == 'Lasers' or v.Name == 'LasersMoving'or string.find(v.Name, 'LaserRooms') or string.find(v.Name, 'Classic') or (v.Name == 'Floors' and v.Parent.Parent.Name == 'Jewelrys') then
                     local oldParent = v.Parent
                     v.Parent = game:GetService('ReplicatedStorage')
 
@@ -6443,6 +6438,56 @@ Notify('Sucess loaded cutscenes creator', 'made by me, '..discord_name, getImage
                     delLaser(a)
                 end
             end)
+            
+            b:CreateDropDown(
+                'ESPS',
+                {
+                    {
+                        'DROP ESP',
+                        'drop',
+                    },
+                    
+                },
+                function(b)
+                    if b == 'drop' then
+                        configs.Drop_esp = not configs.Drop_esp
+                    end
+                end,
+                Color3.fromRGB(48, 255, 73)
+            )
+
+            b:CreateTextLabel('Aimbot', Color3.fromRGB(48, 255, 73))
+
+            AddAimbot(b, Color3.fromRGB(48, 255, 73))
+
+            b:CreateToggle('WalkSpeed', function(toggled)
+                walkspeed = toggled 
+                if walkspeed then
+                    task.spawn(function()
+                        correr = game.RunService.RenderStepped:Connect(function()
+                            getHumanoid(speaker).WalkSpeed = walkspeed_value
+                        end)
+                    end)
+                else
+                    correr:Disconnect()
+                    getHumanoid(speaker).WalkSpeed = 16
+                end
+            end, Color3.fromRGB(48, 255, 73))            
+
+            b:CreateToggle('JumpPower', function(toggled)
+                jumppower = toggled 
+                if jumppower then
+                    task.spawn(function()
+                        pular = game.RunService.RenderStepped:Connect(function()
+                            getHumanoid(speaker).JumpPower = jumppower_value
+                        end)
+                    end)
+                else
+                    pular:Disconnect()
+                    getHumanoid(speaker).JumpPower = 50
+                end
+            end, Color3.fromRGB(48, 255, 73))
+
             b:CreateToggle('Delete Lasers', function(bool)
                 deleteLasers = bool
                 if bool then
@@ -6450,11 +6495,8 @@ Notify('Sucess loaded cutscenes creator', 'made by me, '..discord_name, getImage
                         delLaser(v)
                     end                    
                 end
-            end)
+            end, Color3.fromRGB(48, 255, 73))
 
-            b:CreateToggle('Esp Drops', function(toggled)
-                configs.Drop_esp = toggled
-            end)
 
             function drop_esp(v)
                 local text = Drawing.new('Text')
@@ -6462,7 +6504,7 @@ Notify('Sucess loaded cutscenes creator', 'made by me, '..discord_name, getImage
                 text.Size = 20
                 text.Center = true
                 text.Outline = true
-                text.OutlineColor = Color3.fromRGB(126, 0, 199)
+                text.OutlineColor = Color3.fromRGB(48, 255, 73)
                 text.Font = 3
                 function update()
                     task.spawn(function()
@@ -6497,50 +6539,127 @@ Notify('Sucess loaded cutscenes creator', 'made by me, '..discord_name, getImage
                     drop_esp(w) 
                 end
             end)
-            b:CreateTextLabel('Funny')
+
+            b:CreateSpace(35)
+            local laranja = Color3.fromRGB(255, 126, 28)
+            b:CreateTextLabel('Teleports', laranja)
+
+            b:CreateToggle('Use Car to teleport', function(toggled)
+                configs.car_to_teleport = toggled
+            end, laranja)
+            AddFindPlayer(b, 'Player name')
+            local TELEPORTS = {
+                {
+                    'Prison',
+                    {-1175.7327880859375, 18.08306121826172, -1398.3599853515625},
+                },
+                {
+                    '1M SHOP',
+                    {477.01190185546875, 18.864282608032227, -1588.1253662109375},
+                },
+                {
+                    'Volcano',
+                    {2279.099853515625, 18.855880737304688, -2045.23779296875},
+                },
+                {
+                    'City Center',
+                    {12.485577583312988, 17.93943977355957, 1060.105712890625},
+                },
+                {
+                    'Cyto Center 2',
+                    {177.1837158203125, 18.868192672729492, -1621.2342529296875},
+                },
+                {
+                    'Desert',
+                    {965.77783203125, 24.768280029296875, -402.277587890625},
+                },
+                {
+                    'Area 51',
+                    {685.082763671875, 20.861913681030273, 440.0353088378906},
+                },
+            }
+
+            for i,v in pairs(TELEPORTS) do
+                b:CreateButton(v[1], function()
+                    Teleport(Vector3.new(unpack(v[2])))
+                end, laranja)
+            end
+            local roxo = Color3.fromRGB(17, 217, 240)
+            b:CreateTextLabel('Misc', roxo)
+
+
             local funny_configs = {
                 create_ramp_b = false,
                 super_jump_p = false,
+                noclip_q = false
             }
             b:CreateToggle('Create Ramp (B)', function(toggled)
                 funny_configs.create_ramp_b = toggled
-            end, 'rainbow')
+            end, roxo)
             b:CreateToggle('Super Jump (P)', function(toggled)
                 funny_configs.super_jump_p = toggled
-            end, 'rainbow')
+            end, roxo)
+            b:CreateToggle('Noclip (Q)', function(toggled)
+                funny_configs.noclip_q = toggled
+            end, roxo)
+            local abort = false
+            local abort_arrest = false
+            b:CreateButton('Abort teleport', function()
+                abort = true
+            end, roxo)
+            b:CreateButton('Tp to player', function()
+                Teleport(getRoot(target).Position + Vector3.new(0, 10, 0), true)
+            end, roxo)
+            b:CreateButton('Arrest Player', function()
+                abort_arrest = false
+                Teleport(getRoot(target).Position + Vector3.new(0, 10, 0), true)
+                wait()
+                getHumanoid(speaker).Jump = true
+                
+                repeat
+                    local args = {
+                        [1] = "!bc4b6490-ff88-409b-bd78-9fba7a90fde4",
+                        [2] = target.Name
+                    }
 
+                    getPrimaryRemote():FireServer(unpack(args))
 
-            b:CreateTextLabel('Armas')
-            local armas = {}
-            local args = {
+                    local args = {
+                        [1] = true
+                    }
 
-            }
-            for i,v in pairs(game:GetService("Workspace").Givers:GetChildren()) do
-                if v:FindFirstChild('Item') and v:FindFirstChild('ClickDetector') then
-                    if not table.find(armas, v.Item.Value) then
-                        armas[#armas + 1] = v.Item.Value
-                        args[#args + 1] = {
-                            v.Item.Value,
-                            v.ClickDetector
-                        }
-                        if v.Item.Value == 'HatPolice' then
-                            args[#args + 1] = {
-                                'Roupa normal',
-                                game:GetService("Workspace").ClothingRacks.ClothingRack.Hitbox.ClickDetector
-                            }
+                    game:GetService("Players").LocalPlayer.Folder.Handcuffs.InventoryEquipRemote:FireServer(unpack(args))
+
+                    tp(getRoot(target).Position)
+                    wait()
+                until abort_arrest == true or getHumanoid(speaker).Health == 0
+                local args = {
+                    [1] = false
+                }
+
+                game:GetService("Players").LocalPlayer.Folder.Handcuffs.InventoryEquipRemote:FireServer(unpack(args))
+
+                abort_arrest = false
+            end, roxo)
+            b:CreateButton('Abort Arrest', function()
+                abort_arrest = true
+            end, roxo)
+
+        
+            function a_n(toggled)
+                if toggled then
+                    noclipe = game:GetService('RunService').RenderStepped:Connect(function()
+                        for i,v in pairs(getCharacter(speaker):GetDescendants()) do
+                            if v:IsA('BasePart') and v.CanCollide == false then
+                                v.CanCollide = true
+                            end
                         end
-                    end
+                    end)
+                else
+                    noclipe:Disconnect()
                 end
             end
-
-            b:CreateDropDown(
-                'Puchar items',
-                args,
-                function(item)
-                    fireclickdetector(item)
-                end
-            )
-
+            local noclip_on = false
             game:GetService('UserInputService').InputBegan:Connect(function(input)
                 if input.KeyCode == Enum.KeyCode.B and funny_configs.create_ramp_b == true then
                     local root = game.Players.LocalPlayer.Character.HumanoidRootPart
@@ -6562,25 +6681,120 @@ Notify('Sucess loaded cutscenes creator', 'made by me, '..discord_name, getImage
 
                     getRoot(speaker).Velocity = newvelocity
                 end
+                if input.KeyCode == Enum.KeyCode.Q and funny_configs.noclip_q == true then
+                    noclip_on = not noclip_on
+                    a_n(noclip_on)
+                end
             end)
             
-            b:CreateTextLabel('Teleport Config')
+            b:CreateToggle('NO E WAIT', function(b)
+                noewait = b 
 
-            b:CreateToggle('Usar carro para teleportar', function(toggled)
-                configs.car_to_teleport = toggled
-            end)
-            b:CreateButton('Ativar Alarme do casino', function()
-                game:GetService("ReplicatedStorage").CasinoTriggerAlarm:FireServer(speaker)
-            end)
+                if b then
+                    local func;
+                    for i,v in pairs(getgc()) do
+                        if type(v) == "function" and debug.getinfo(v).name == "UpdateCircleActions" then
+                            func = v
+                        end
+                    end
+                    local goalTable = getupvalues(func)[2]
+                    for i,v in pairs(goalTable.CircleAction.Specs) do
+                        local old = v.Duration
+                        v.Duration = 0
+                        task.spawn(function()
+                            repeat 
+                                wait()
+                            until noewait == false
+                            v.Duration = old
+                        end)
+                    end
+                end
+            end, roxo)
+            b:CreateToggle('Key card Bypass', function(b)
+                for i, v in pairs(getgc(true)) do
+                    if type(v) == "function" and debug.getinfo(v).name == "hasKey" then
+                        hookfunction(v, function(...)
+                            return b
+                        end)
+                    end
+                end
+            end, roxo)
             
-            b:CreateTextLabel('Teleports (Teleport Method By Vynixus, RegularVynixu#8039)')
+            b:CreateToggle('Anti Ragdoll', function(b)
+                antiRagdoll = b
+                if b then
+                    local item = require(game:GetService("ReplicatedStorage").Module.AlexRagdoll)
+                    local oldfunction = item.Ragdoll
+                    item.Ragdoll = function()
+    
+                            return wait(9e9)
+    
+                    end
+                    task.spawn(function()
+                        repeat
+                            wait()
+                        until antiRagdoll == false
+                        item.Ragdoll = oldfunction
+                    end)
+                end
+            end, roxo)
 
-            
-            local teleport_velo = 640
+            b:CreateToggle('Anti Skydiving', function(bool)
+                antiskydiving = bool
 
-            AddFindPlayer(b, 'Player name')
+                if bool then
+                    task.spawn(function()
+                        local func
+                        for i,v in pairs(getgc()) do
+                            if type(v) == 'function' and not is_synapse_function(v) and getinfo(v).name == 'StopSkydiving' then
+                                func = v
+                            end
+                        end
+                        while antiskydiving == true do
+
+                            task.spawn(function()
+                                func()
+                            end)
+
+                            task.wait()
+                        end
+                    end)
+                end
+            end, roxo)
+
+            b:CreateButton('Start Skydiving', function()
+                local func
+                for i,v in pairs(getgc()) do
+                    if type(v) == 'function' and not is_synapse_function(v) and getinfo(v).name == 'StartSkydiving' then
+                        func = v
+                    end
+                end
+                
+                func()
+            end, roxo)
             local tagCar = ''
 
+            b:CreateToggle('Auto Donut', function(bool)
+                autoDonut = bool
+
+                if bool then
+                    spawn(function()
+                        while autoDonut == true do
+                            if not speaker.Folder:FindFirstChild('Donut') then
+                                getRoot(speaker).CFrame = CFrame.new(85, 20, -1581)
+                            end
+                            task.wait()
+                        end
+                    end)
+                end
+            end, roxo)
+
+            b:CreateButton('Open Garage', function()
+                for i = 1,50 do
+                    getRoot(speaker).CFrame = CFrame.new(81, 19, -1433)
+                    task.wait()
+                end
+            end, roxo)
 
             function enter(a,b)
                 local remote = getPrimaryRemote()
@@ -6614,94 +6828,6 @@ Notify('Sucess loaded cutscenes creator', 'made by me, '..discord_name, getImage
                 return camaro
             end
 
-            local abort = false
-            local abort_arrest = false
-            b:CreateButton('Abort teleport', function()
-                abort = true
-            end)
-            b:CreateButton('Tp to player', function()
-                Teleport(getRoot(target).Position + Vector3.new(0, 10, 0), true)
-            end)
-            b:CreateButton('Arrest Player', function()
-                abort_arrest = false
-                Teleport(getRoot(target).Position + Vector3.new(0, 10, 0), true)
-                wait()
-                getHumanoid(speaker).Jump = true
-                
-                repeat
-                    local args = {
-                        [1] = "!bc4b6490-ff88-409b-bd78-9fba7a90fde4",
-                        [2] = target.Name
-                    }
-
-                    getPrimaryRemote():FireServer(unpack(args))
-
-                    local args = {
-                        [1] = true
-                    }
-
-                    game:GetService("Players").LocalPlayer.Folder.Handcuffs.InventoryEquipRemote:FireServer(unpack(args))
-
-                    tp(getRoot(target).Position)
-                    wait()
-                until abort_arrest == true or getHumanoid(speaker).Health == 0
-                local args = {
-                    [1] = false
-                }
-
-                game:GetService("Players").LocalPlayer.Folder.Handcuffs.InventoryEquipRemote:FireServer(unpack(args))
-
-                abort_arrest = false
-            end)
-            b:CreateButton('Abort Arrest', function()
-                abort_arrest = true
-            end)
-            
-            
-            
-            
-            
-
-            b:CreateToggle('NO E WAIT', function(b)
-                noewait = b 
-
-                if b then
-                    local func;
-                    for i,v in pairs(getgc()) do
-                        if type(v) == "function" and not is_synapse_function(v) and debug.getinfo(v).name == "UpdateCircleActions" then
-                            func = v
-                        end
-                    end
-                    local goalTable = getupvalues(func)[2]
-                    for i,v in pairs(goalTable.CircleAction.Specs) do
-                        local old = v.Duration
-                        v.Duration = 0
-                        task.spawn(function()
-                            repeat 
-                                wait()
-                            until noewait == false
-                            v.Duration = old
-                        end)
-                    end
-                end
-            end)
-            b:CreateToggle('Key card Bypass', function(b)
-                for i, v in pairs(getgc(true)) do
-                    if type(v) == "function" and debug.getinfo(v).name == "hasKey" then
-                        hookfunction(v, function(...)
-                            return b
-                        end)
-                    end
-                end
-            end)
-            b:CreateTextLabel('Location Sell')
-
-           
-
-            
-
-            
-            
         end                        
         --[[Da hood modded ]] if game.PlaceId == 5602055394 then
             ChangeName('Da hood Modded')
@@ -10214,7 +10340,6 @@ rconsoleclear()
 function cp(info, message, info_color)
     old_color = '@@WHITE@@'
     pairs_color = '@@WHITE@@'
-    rconsoleprint('\n')
     rconsoleprint(pairs_color)  
     rconsoleprint('[') 
     rconsoleprint(info_color) 
@@ -10223,7 +10348,7 @@ function cp(info, message, info_color)
     rconsoleprint(pairs_color) 
     rconsoleprint(']') 
     rconsoleprint(old_color) 
-    rconsoleprint(' '..message)
+    rconsoleprint(' '..message..'\n')
 end
 rconsolename('HWID System')
 
