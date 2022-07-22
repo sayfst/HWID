@@ -329,6 +329,11 @@ function MAGNATA_ACTIVE()
     local magnata = {}
 
     function magnata:CreateWindow(titleWindow, config)
+        for i,v in pairs(game.CoreGui:GetChildren()) do
+            if v.Name == 'LairaMENU' then
+                v:Destroy()
+            end
+        end
         config = config or {
             ['Theme'] = 'rbxassetid://'
         }
@@ -412,6 +417,7 @@ function MAGNATA_ACTIVE()
         local Tema = Instance.new("ImageLabel")
         
         
+        ScreenGui.Name = 'LairaMENU'
         ScreenGui.Parent = game.CoreGui
         ScreenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
         
@@ -632,9 +638,9 @@ function MAGNATA_ACTIVE()
                     end
                 end)
             end
-            function botoes:CreateToggle(title, callback)
-
-                
+            function botoes:CreateToggle(title, callback, cc)
+                cc = cc or Color3.fromRGB(255, 255, 255)
+                if typeof(cc) ~= 'Color3' then cc = Color3.fromRGB(255, 255, 255) end
                 local Toggle = Instance.new("TextLabel")
                 local FrameToggle = Instance.new("TextButton")
                 local toggleTexto = Instance.new("TextLabel")
@@ -643,14 +649,14 @@ function MAGNATA_ACTIVE()
                 Toggle.Name = "Toggle"
                 Toggle.Parent = ScrollingFrame
                 Toggle.Active = true
-                Toggle.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+                Toggle.BackgroundColor3 = cc
                 Toggle.BackgroundTransparency = 1.000
                 Toggle.Position = UDim2.new(-0.00267379684, 0, 0.187891439, 0)
                 Toggle.Selectable = true
                 Toggle.Size = UDim2.new(0, 375, 0, 24)
                 Toggle.Font = Enum.Font.RobotoCondensed
                 Toggle.Text = ""
-                Toggle.TextColor3 = Color3.fromRGB(255, 255, 255)
+                Toggle.TextColor3 = cc
                 Toggle.TextSize = 14.000
                 Toggle.TextXAlignment = Enum.TextXAlignment.Left
 
@@ -802,7 +808,8 @@ function MAGNATA_ACTIVE()
                     end)
                 end)
             end
-            function botoes:CreateTextLabel(text)
+            function botoes:CreateTextLabel(text, cc)
+                cc = cc or Color3.fromRGB(199, 199, 199)
                 -- Gui to Lua
                 -- Version: 3.2
 
@@ -821,7 +828,7 @@ function MAGNATA_ACTIVE()
                 TextLabel.Size = UDim2.new(0, 375, 0, 17)
                 TextLabel.Font = Enum.Font.RobotoCondensed
                 TextLabel.Text = text
-                TextLabel.TextColor3 = Color3.fromRGB(199, 199, 199)
+                TextLabel.TextColor3 = cc
                 TextLabel.TextSize = 20.000
                 TextLabel.TextXAlignment = Enum.TextXAlignment.Left
             end
@@ -5884,6 +5891,8 @@ Notify('Sucess loaded cutscenes creator', 'made by me, '..discord_name, getImage
         --[[Bloxburg]] if game.PlaceId == 185655149 then
             ChangeName('Blox Burg')
 
+            b:CreateTextLabel('Blox burg script is Patched')
+
             b:CreateTextLabel('Bloxburg has a very good anti cheat...\nDo not abuse the options..')
             b:CreateSpace(30)
             b:CreateTextLabel('Blox burg script')
@@ -6054,8 +6063,335 @@ Notify('Sucess loaded cutscenes creator', 'made by me, '..discord_name, getImage
             setreadonly(gmt, true)
             
             
-            b:CreateTextLabel('LocalPlayer')
+            b:CreateTextLabel('Farming', Color3.fromRGB(255, 0, 0))
 
+            local StopParachute
+
+            for i,v in pairs(getgc()) do
+                if type(v) == 'function' and getinfo(v).name then
+                    if getinfo(v).name == 'ParachuteStop' then
+                        StopParachute = v
+                    end
+                end
+            end
+
+
+            local Parachute
+
+            for i,v in pairs(getgc()) do
+                if type(v) == 'function' and getinfo(v).name then
+                    if getinfo(v).name == 'Parachute' then
+                        Parachute = v
+                    end
+                end
+            end
+            function tp(vector, customvelo, isplayer, faltando)
+                if typeof(vector) == 'table' then
+                    vector = Vector3.new(vector[1], vector[2], vector[3])
+                end
+                customvelo = customvelo or 5e4
+                faltando = faltando or false
+                isplayer = isplayer or false
+                if isplayer == true then
+                    Notify(
+                        'Follow Player',
+                        'Following '..target.DisplayName,
+                        nil,
+                        5
+                    )
+                end
+                abort = false
+                if customvelo == nil then
+                    customvelo = 150000
+                end
+                local aperta = false
+                
+
+
+
+                local BodyVelocity = Instance.new('BodyPosition')
+                BodyVelocity.MaxForce = Vector3.new(9e9, 9e9, 9e9)
+                BodyVelocity.D = 500
+                BodyVelocity.P = 50000
+                BodyVelocity.Parent = getRoot(speaker)
+                local reached = false
+                local old = teleport_velo
+                local Loop = game.RunService.Stepped:Connect(function(_, step)
+                    local yourRoot = getRoot(speaker)
+                    local diff
+                    if isplayer == true then
+                        vector = getRoot(target).Position + Vector3.new(0, 200, 0)
+                    end
+                    diff = (vector - getRoot(speaker).Position)
+                    
+                    BodyVelocity.Position = getRoot(speaker).Position + diff.Unit * math.min(step * teleport_velo, diff.Magnitude)
+                    if speaker.Character:FindFirstChild('Humanoid').Sit == true then
+                        BodyVelocity.P = customvelo
+                        teleport_velo = 400
+                    else
+                        teleport_velo = 180
+                        BodyVelocity.P = 50000
+                    end
+                    if (vector - getRoot(speaker).Position).Magnitude < 15 then
+                        if getHumanoid(speaker).Sit == false then
+                            Parachute()
+                        end
+                    end
+                    if (vector - getRoot(speaker).Position).Magnitude < 1 then
+                        reached = true
+                    end
+                end)
+
+                repeat wait() until reached == true or abort == true
+                delay(1, function()
+                    StopParachute()
+                end)
+                Loop:Disconnect()
+                BodyVelocity:Destroy()
+                getRoot(speaker).Velocity = Vector3.new(0, 3, 0)
+                
+            end
+
+            function Teleport(pos, isup)
+                isup = isup or false
+                if getHumanoid(speaker).Sit == false then
+                    local args = {
+                        [1] = "Chassis",
+                        [2] = "Camaro"
+                    }
+    
+                    game:GetService("ReplicatedStorage").GarageSpawnVehicle:FireServer(unpack(args))
+                end
+                wait(0.4)
+                if configs.car_to_teleport == true and not getHumanoid(speaker).Sit == true then
+                    Notify('Teleportar', 'O jogador nao esta em um carro...', nil, 3)
+                    wait(0.1)
+                    Notify('Teleportar', 'Procurando um Carro...', nil, 3)
+                    wait()
+                    if getCamaro() ~= nil then
+                        Notify('Teleportar', 'Carro Encontrado', nil, 3)
+                        getRoot(speaker).CFrame = getRoot(speaker).CFrame + Vector3.new(0, 200, 0)
+                        wait()
+                        
+                        tp(getCamaro().Engine.Position + Vector3.new(0, 200, 0), 50000)
+                        local enterVehicle
+
+                        for i,v in pairs(getgc()) do
+                            if type(v) == 'function' and  getinfo(v).name then
+                                if getinfo(v).name == 'InputBegan' then
+                                    enterVehicle = v
+                                end
+                            end
+                        end
+                        local funcaoEntrar
+                        for i,v in pairs(getupvalues(enterVehicle)) do
+                            if i == 2 then
+                                funcaoEntrar = v
+                            end
+                        end
+                        local fire
+                        for i,v in pairs(getgc()) do
+                            if type(v) == 'function' and getinfo(v).name == 'AttemptVehicleEnter' then
+                                fire = v
+                            end
+                        end
+
+                        local tag
+                        for i,v in pairs(getupvalues(fire)) do
+                            if i == 2 then
+                                for i,v in pairs(v) do
+                                    for i,v in pairs(getupvalues(v)) do
+                                        if i == 1 then
+                                            for i,v in pairs(getupvalues(v)) do
+                                                if i == 2 then
+                                                    tag = tostring(v)
+                                                end
+                                            end
+                                        end
+                                    end
+                                end
+                            end
+                        end
+
+                        local time = 0
+                        task.spawn(function()
+                            wait(0.5)
+                            
+                            
+                            repeat
+                                keypress(keycodeMap['e'])
+
+                                wait(0.1)
+                                keyrelease(keycodeMap['e'])
+                                wait(0.1)
+                                time = time + 0.2
+                            until getHumanoid(speaker).Sit == true or getHumanoid(speaker).Health == 0 or time > 3
+                        end)
+                        StopParachute() 
+                        repeat
+                            task.wait()
+                            getRoot(speaker).Velocity = Vector3.new(0, 3, 0)
+                            getRoot(speaker).CFrame = CFrame.new(getCamaro().Seat.CFrame * CFrame.new(-6.5, 7, 0).Position)
+                            local camera = workspace.CurrentCamera
+                            camera.CFrame = CFrame.new(camera.CFrame.Position, getCamaro().Seat.Position)
+                                                                    
+                            
+                            
+                        until getHumanoid(speaker).Sit == true or getHumanoid(speaker).Health == 0 or time > 3
+                        
+                        
+                        if getHumanoid(speaker).Health == 0 then for i = 1,5 do execCmd('Abort teleport') end return end
+                    else
+                        Notify('Teleportar', 'Nenhum Carro Disponivel...', nil, 3)
+                    end
+                end
+
+                if getHumanoid(speaker).Sit == false then
+                    getRoot(speaker).CFrame = getRoot(speaker).CFrame + Vector3.new(0, 100, 0)
+                    wait(0.1)
+                    getRoot(speaker).CFrame = getRoot(speaker).CFrame + Vector3.new(0, 100, 0)
+                    local canStop = false
+
+                    wait()
+                    
+                    tp(pos + Vector3.new(0, 200, 0), 150000, isup)
+                    
+                    wait()
+                    canStop = true
+                    tp(pos, 150000, isup)
+                else
+                    tp(getRoot(speaker).Position + Vector3.new(0, 200, 0), 50000)
+                    wait()
+                    local canStop = false
+                    task.spawn(function()
+                        while canStop == false do
+                            if getHumanoid(speaker).Sit == false then
+                                local args = {
+                                    [1] = "Chassis",
+                                    [2] = "Camaro"
+                                }
+
+                                game:GetService("ReplicatedStorage").GarageSpawnVehicle:FireServer(unpack(args))
+                            end
+                            task.wait()
+                        end
+                    end)
+                    tp(pos + Vector3.new(0, 200, 0), 150000, isup)
+                    wait()
+                    canStop = true
+                    tp(pos, 50000, isup, faltando)
+                end
+                
+            end
+
+            local Jail_Positions = {
+
+                {'Museum | Museu', Vector3.new(1113.5445556640625, 139.10427856445312, 1297.2264404296875)},
+                {'Power Plant', Vector3.new(46.77196502685547, 20.40790367126465, 2358.94482421875)},
+                {'Jewelry | Joalheria', Vector3.new(143.66824340820312, 17.883831024169922, 1379.358154296875)},
+                {'Bank | Banco', Vector3.new(43.04151153564453, 17.872217178344727, 764.78759765625)},
+                {'Gas station | Posto d/ gasolina', Vector3.new(-1534.64453125, 18.461469650268555, 701.8700561523438)},
+                {'Donut shop', Vector3.new(62.23844528198242, 18.963422775268555, -1517.5889892578125)},
+                {'Casino', Vector3.new(-194.64422607421875, 19.190465927124023, -4584.3720703125)},
+                
+
+
+
+            }
+
+            for i,v in pairs(Jail_Positions) do
+                b:CreateButton('Farm '..v[1], function()
+                    Teleport(v[2])
+                end, Color3.fromRGB(255, 0, 0))
+            end
+
+            b:CreateButton('Auto airdrop', function()
+            
+            end, Color3.fromRGB(255,0,0))
+            b:CreateSpace(35)
+
+
+            b:CreateTextLabel('Sell | Vender', Color3.fromRGB(0, 0, 255))
+
+            b:CreateButton('Base Criminal Volcano', function()
+                Teleport(Vector3.new(2277.160888671875, 18.90064239501953, -2055.906494140625))
+            end, Color3.fromRGB(0, 0, 255))
+
+            b:CreateButton('Base Criminal City', function()
+                Teleport(Vector3.new(2277.160888671875, 18.90064239501953, -2055.906494140625))
+            end, Color3.fromRGB(0, 0, 255))
+            
+            b:CreateButton('Auto sell [Volcano]', function()
+                Teleport(Vector3.new(2282.696044921875, 19.226276397705078, -2062.759521484375))
+                wait()
+                tp(Vector3.new(2272.375244140625, 19.577966690063477, -2145.40380859375))
+                wait(0.6)
+                tp(Vector3.new(2217.97509765625, 21.049650192260742, -2471.96923828125))
+                wait()
+                tp(Vector3.new(2255.926025390625, 24.184404373168945, -2514.640869140625))
+                wait()
+                tp(Vector3.new(2275.942626953125, 24.186279296875, -2550.67333984375))
+                wait()
+                tp(Vector3.new(2291.136474609375, 23.814661026000977, -2590.342529296875))                
+            end, Color3.fromRGB(0, 0, 255))
+
+            b:CreateSpace(35)
+
+            b:CreateTextLabel('Exit | Saida', Color3.fromRGB(213, 235, 19))
+
+            b:CreateButton('Museum | Museu', function()
+                local pos = {
+                    {1132.824462890625, 107.8163833618164, 1309.4820556640625},
+                    {1110.1837158203125, 118.41899108886719, 1306.7021484375},
+                    {1088.4345703125, 126.14624786376953, 1311.1881103515625},
+                    {1085.2440185546875, 142.7015838623047, 1314.8292236328125},
+                    {1051.42236328125, 154.09397888183594, 1230.1002197265625},
+                    {1023.6897583007812, 101.81444549560547, 1189.2498779296875},
+                }
+
+                for i,v in pairs(pos) do
+                    tp(Vector3.new(v[1],v[2],v[3]))
+                    wait()
+                end
+            end, Color3.fromRGB(213, 235, 19))
+
+            b:CreateButton('Power plant (Activate when you get the bag)', function()
+                local pos = {
+                    {101.39669799804688, -5.338563919067383, 2118.960693359375},
+                    {55.1356201171875, -5.591137886047363, 2094.51611328125},
+                    {16.16367530822754, -6.642032623291016, 2110.04052734375},
+                    {5.4607343673706055, 4.936450004577637, 2123.782470703125},
+                    {27.192514419555664, 6.664810657501221, 2157.064697265625},
+                    {45.34912109375, -6.086098670959473, 2170.0078125},
+                    {63.95834732055664, -5.045591354370117, 2190.177734375},
+                    {50.7077751159668, -5.045591354370117, 2200.8310546875},
+                    {57.530967712402344, 0.13438540697097778, 2210.271484375},
+                    {97.49678802490234, 15.520063400268555, 2259.831787109375},
+                    {88.31095123291016, 26.41103172302246, 2267.13818359375},
+                    {72.95352935791016, 23.09345817565918, 2287.04638671875},
+                    {59.195716857910156, 22.28597640991211, 2297.031005859375},
+                    {32.832035064697266, 21.96160888671875, 2305.760498046875},
+                }
+
+                for i,v in pairs(pos) do
+                    tp(Vector3.new(v[1],v[2],v[3]))
+                    wait()
+                end
+            end, Color3.fromRGB(213, 235, 19))
+
+            b:CreateSpace(35)
+
+            b:CreateTextLabel('Combat', Color3.fromRGB(48, 255, 73))
+
+
+            b:CreateWhile('Abrir loja de arma', function()
+                getRoot(speaker).CFrame = CFrame.new(7, 20, -1725)
+            end)     
+            
+
+            b:CreateSlider('Gravity', 0, 196.2, function(value)
+                workspace.Gravity = value
+            end, true)
             b:CreateToggle('WalkSpeed', function(toggled)
                 walkspeed = toggled 
                 if walkspeed then
@@ -6068,10 +6404,7 @@ Notify('Sucess loaded cutscenes creator', 'made by me, '..discord_name, getImage
                     correr:Disconnect()
                     getHumanoid(speaker).WalkSpeed = 16
                 end
-            end)
-            b:CreateSlider('WalkSpeed', 16, 150, function(value)
-                walkspeed_value = value                          
-            end)
+            end)            
 
             b:CreateToggle('JumpPower', function(toggled)
                 jumppower = toggled 
@@ -6089,20 +6422,35 @@ Notify('Sucess loaded cutscenes creator', 'made by me, '..discord_name, getImage
             b:CreateSlider('JumpPower', 50, 200, function(value)
                 jumppower_value = value                          
             end)
-            b:CreateButton('Fly (X)', function()
-                ExecCmd('Noclip (X)')
+            b:CreateSlider('WalkSpeed', 16, 150, function(value)
+                walkspeed_value = value                          
             end)
-            b:CreateWhile('Abrir loja de arma', function()
-                getRoot(speaker).CFrame = CFrame.new(7, 20, -1725)
-            end)
-            
-            b:CreateTextLabel('Gravity')
-
-            b:CreateSlider('Gravity', 0, 196.2, function(value)
-                workspace.Gravity = value
-            end, true)
             b:CreateTextLabel('Visuals')
+            local deleteLasers = false
+            function delLaser(v)
+                if v.Name == 'BarbedWire' or v.Name == 'Shadow' or v.Name == 'Lasers' or v.Name == 'LasersMoving'or string.find(v.Name, 'LaserRooms') then
+                    local oldParent = v.Parent
+                    v.Parent = game:GetService('ReplicatedStorage')
 
+                    task.spawn(function()
+                        repeat wait() until deleteLasers == false 
+                        v.Parent = oldParent
+                    end)
+                end
+            end
+            workspace.DescendantAdded:Connect(function(a)
+                if deleteLasers == true then
+                    delLaser(a)
+                end
+            end)
+            b:CreateToggle('Delete Lasers', function(bool)
+                deleteLasers = bool
+                if bool then
+                    for i,v in pairs(workspace:GetDescendants()) do
+                        delLaser(v)
+                    end                    
+                end
+            end)
 
             b:CreateToggle('Esp Drops', function(toggled)
                 configs.Drop_esp = toggled
@@ -6308,262 +6656,11 @@ Notify('Sucess loaded cutscenes creator', 'made by me, '..discord_name, getImage
             b:CreateButton('Abort Arrest', function()
                 abort_arrest = true
             end)
-            b:CreateButton('Enter', function()
-                enter(getCamaro(), getCamaro().Seat)
-            end)
-            local StopParachute
-
-            for i,v in pairs(getgc()) do
-                if type(v) == 'function' and getinfo(v).name then
-                    if getinfo(v).name == 'ParachuteStop' then
-                        StopParachute = v
-                    end
-                end
-            end
-
-
-            local Parachute
-
-            for i,v in pairs(getgc()) do
-                if type(v) == 'function' and getinfo(v).name then
-                    if getinfo(v).name == 'Parachute' then
-                        Parachute = v
-                    end
-                end
-            end
-            function tp(vector, customvelo, isplayer, faltando)
-                if typeof(vector) == 'table' then
-                    vector = Vector3.new(vector[1], vector[2], vector[3])
-                end
-                customvelo = customvelo or 5e4
-                faltando = faltando or false
-                isplayer = isplayer or false
-                if isplayer == true then
-                    Notify(
-                        'Follow Player',
-                        'Following '..target.DisplayName,
-                        nil,
-                        5
-                    )
-                end
-                abort = false
-                if customvelo == nil then
-                    customvelo = 150000
-                end
-                local aperta = false
-                
-
-
-
-                local BodyVelocity = Instance.new('BodyPosition')
-                BodyVelocity.MaxForce = Vector3.new(9e9, 9e9, 9e9)
-                BodyVelocity.D = 500
-                BodyVelocity.P = 50000
-                BodyVelocity.Parent = getRoot(speaker)
-                local reached = false
-                local old = teleport_velo
-                local Loop = game.RunService.Stepped:Connect(function(_, step)
-                    local yourRoot = getRoot(speaker)
-                    local diff
-                    if isplayer == true then
-                        vector = getRoot(target).Position + Vector3.new(0, 200, 0)
-                    end
-                    diff = (vector - getRoot(speaker).Position)
-                    
-                    BodyVelocity.Position = getRoot(speaker).Position + diff.Unit * math.min(step * teleport_velo, diff.Magnitude)
-                    if speaker.Character:FindFirstChild('Humanoid').Sit == true then
-                        BodyVelocity.P = customvelo
-                        teleport_velo = 400
-                    else
-                        teleport_velo = 180
-                        BodyVelocity.P = 50000
-                    end
-                    if (vector - getRoot(speaker).Position).Magnitude < 15 then
-                        if getHumanoid(speaker).Sit == false then
-                            Parachute()
-                        end
-                    end
-                    if (vector - getRoot(speaker).Position).Magnitude < 1 then
-                        reached = true
-                    end
-                end)
-
-                repeat wait() until reached == true or abort == true
-                delay(1, function()
-                    StopParachute()
-                end)
-                Loop:Disconnect()
-                BodyVelocity:Destroy()
-                getRoot(speaker).Velocity = Vector3.new(0, 3, 0)
-                
-            end
-
-            function Teleport(pos, isup)
-
-                isup = isup or false
-                if configs.car_to_teleport == true and not getHumanoid(speaker).Sit == true then
-                    Notify('Teleportar', 'O jogador nao esta em um carro...', nil, 3)
-                    wait(0.1)
-                    Notify('Teleportar', 'Procurando um Carro...', nil, 3)
-                    wait()
-                    if getCamaro() ~= nil then
-                        Notify('Teleportar', 'Carro Encontrado', nil, 3)
-                        getRoot(speaker).CFrame = getRoot(speaker).CFrame + Vector3.new(0, 200, 0)
-                        wait()
-                        
-                        tp(getCamaro().Engine.Position + Vector3.new(0, 200, 0), 50000)
-                        local enterVehicle
-
-                        for i,v in pairs(getgc()) do
-                            if type(v) == 'function' and  getinfo(v).name then
-                                if getinfo(v).name == 'InputBegan' then
-                                    enterVehicle = v
-                                end
-                            end
-                        end
-                        local funcaoEntrar
-                        for i,v in pairs(getupvalues(enterVehicle)) do
-                            if i == 2 then
-                                funcaoEntrar = v
-                            end
-                        end
-                        local fire
-                        for i,v in pairs(getgc()) do
-                            if type(v) == 'function' and getinfo(v).name == 'AttemptVehicleEnter' then
-                                fire = v
-                            end
-                        end
-
-                        local tag
-                        for i,v in pairs(getupvalues(fire)) do
-                            if i == 2 then
-                                for i,v in pairs(v) do
-                                    for i,v in pairs(getupvalues(v)) do
-                                        if i == 1 then
-                                            for i,v in pairs(getupvalues(v)) do
-                                                if i == 2 then
-                                                    tag = tostring(v)
-                                                end
-                                            end
-                                        end
-                                    end
-                                end
-                            end
-                        end
-
-                        local time = 0
-                        task.spawn(function()
-                            wait(0.5)
-                            
-                            
-                            repeat
-                                keypress(keycodeMap['e'])
-
-                                wait(0.1)
-                                keyrelease(keycodeMap['e'])
-                                wait(0.1)
-                                time = time + 0.2
-                            until getHumanoid(speaker).Sit == true or getHumanoid(speaker).Health == 0 or time > 3
-                        end)
-                        StopParachute() 
-                        repeat
-                            task.wait()
-                            getRoot(speaker).Velocity = Vector3.new(0, 3, 0)
-                            getRoot(speaker).CFrame = CFrame.new(getCamaro().Seat.CFrame * CFrame.new(-6.5, 7, 0).Position)
-                            local camera = workspace.CurrentCamera
-                            camera.CFrame = CFrame.new(camera.CFrame.Position, getCamaro().Seat.Position)
-                                                                    
-                            
-                            
-                        until getHumanoid(speaker).Sit == true or getHumanoid(speaker).Health == 0 or time > 3
-                        
-                        
-                        if getHumanoid(speaker).Health == 0 then for i = 1,5 do execCmd('Abort teleport') end return end
-                    else
-                        Notify('Teleportar', 'Nenhum Carro Disponivel...', nil, 3)
-                    end
-                end
-
-                if getHumanoid(speaker).Sit == false then
-                    getRoot(speaker).CFrame = getRoot(speaker).CFrame + Vector3.new(0, 100, 0)
-                    wait(0.1)
-                    getRoot(speaker).CFrame = getRoot(speaker).CFrame + Vector3.new(0, 100, 0)
-                    local canStop = false
-                    task.spawn(function()
-                        while canStop == false do
-                            if getHumanoid(speaker).Sit == false then
-                                local args = {
-                                    [1] = "Chassis",
-                                    [2] = "Camaro"
-                                }
-
-                                game:GetService("ReplicatedStorage").GarageSpawnVehicle:FireServer(unpack(args))
-                            end
-                            task.wait(1)
-                        end
-                    end)
-                    wait()
-                    
-                    tp(pos + Vector3.new(0, 200, 0), 150000, isup)
-                    
-                    wait()
-                    canStop = true
-                    tp(pos, 150000, isup)
-                else
-                    tp(getRoot(speaker).Position + Vector3.new(0, 200, 0), 50000)
-                    wait()
-                    local canStop = false
-                    task.spawn(function()
-                        while canStop == false do
-                            if getHumanoid(speaker).Sit == false then
-                                local args = {
-                                    [1] = "Chassis",
-                                    [2] = "Camaro"
-                                }
-
-                                game:GetService("ReplicatedStorage").GarageSpawnVehicle:FireServer(unpack(args))
-                            end
-                            task.wait()
-                        end
-                    end)
-                    tp(pos + Vector3.new(0, 200, 0), 150000, isup)
-                    wait()
-                    canStop = true
-                    tp(pos, 50000, isup, faltando)
-                end
-                
-            end
             
             
             
-            local Jail_Positions = {
-
-                {'Museum / Museu', Vector3.new(1065.49951171875, 101.42524719238281, 1234.49560546875)},
-                {'Museum UP / Em cima do museu', Vector3.new(1113.5445556640625, 139.10427856445312, 1297.2264404296875)},
-                {'Power Plant', Vector3.new(46.77196502685547, 20.40790367126465, 2358.94482421875)},
-                {'Jewelry / Joalheria', Vector3.new(143.66824340820312, 17.883831024169922, 1379.358154296875)},
-                {'Bank / Banco', Vector3.new(43.04151153564453, 17.872217178344727, 764.78759765625)},
-                {'Prison / Prisao (Dentro)', Vector3.new(-1224.7098388671875, 27.679229736328125, -1764.530517578125)},
-                {'Prison Fora', Vector3.new(-1146.716064453125, 25.21411895751953, -1392.434814453125)},
-                {'Loja de arma', Vector3.new(-9.461043357849121, 30.902263641357422, -1785.4365234375)},
-                {'Base do vulcao', Vector3.new(1808.7137451171875, 81.74887084960938, -2162.716552734375)},
-                {'base do vulcao perto', Vector3.new(2278.31396484375, 21.88890838623047, -2058.045654296875)},
-                {'Base da cidade', Vector3.new(-246.20692443847656, 19.942502975463867, 1613.072265625)},
-                {'Aeroporto', Vector3.new(-1268.5897216796875, 41.23357391357422, 2861.764404296875)},
-                {'Posto de gasolina', Vector3.new(-1534.64453125, 18.461469650268555, 701.8700561523438)},
-                {'Casino', Vector3.new(-194.64422607421875, 19.190465927124023, -4584.3720703125)},
-                {'Loja de rosquinha', Vector3.new(62.23844528198242, 18.963422775268555, -1517.5889892578125)},
-
-
-
-            }
-
-            b:CreateTextLabel('Locations')
-            for i,v in pairs(Jail_Positions) do
-                b:CreateButton(v[1], function()
-                    Teleport(v[2])
-                end, 'rainbow')
-            end
+            
+            
 
             b:CreateToggle('NO E WAIT', function(b)
                 noewait = b 
@@ -6599,88 +6696,11 @@ Notify('Sucess loaded cutscenes creator', 'made by me, '..discord_name, getImage
             end)
             b:CreateTextLabel('Location Sell')
 
-            b:CreateButton('Vender No vulcao', function()
-                Teleport(Vector3.new(2282.696044921875, 19.226276397705078, -2062.759521484375))
-                wait()
-                tp(Vector3.new(2272.375244140625, 19.577966690063477, -2145.40380859375))
-                wait(0.6)
-                tp(Vector3.new(2217.97509765625, 21.049650192260742, -2471.96923828125))
-                wait()
-                tp(Vector3.new(2255.926025390625, 24.184404373168945, -2514.640869140625))
-                wait()
-                tp(Vector3.new(2275.942626953125, 24.186279296875, -2550.67333984375))
-                wait()
-                tp(Vector3.new(2291.136474609375, 23.814661026000977, -2590.342529296875))
-                
-            end)
-            b:CreateButton('Roubar Loja de rosquinha', function()
-                if (getRoot(speaker).Position - Vector3.new(69.19244384765625, 18.970848083496094, -1516.57958984375)).Magnitude > 50 then Teleport(Vector3.new(69.19244384765625, 18.970848083496094, -1516.57958984375)) end
+           
 
-                wait()
-                getHumanoid(speaker).Sit = false
-                wait()
-                pos = {
-                    {94.88445281982422, 19.225357055664062, -1522.9833984375},
-                    {97.45701599121094, 25.682828903198242, -1532.550048828125},
-                    {100.21183776855469, 28.441648483276367, -1541.4083251953125},
-                    {76.9012451171875, 24.93100357055664, -1590.824951171875},
-                    {76.90125274658203, 19.725378036499023, -1590.824951171875},
-                }
+            
 
-                for i,v in next, pos do
-                    tp(Vector3.new(v[1],v[2],v[3]), 5000)
-                    wait()
-                end
-                local camera = workspace.CurrentCamera
-
-                camera.CFrame = CFrame.new(camera.CFrame.Position, game:GetService("Workspace").SmallStores:GetChildren()[2].Position)
-                wait(0.1)
-                keypress(keycodeMap('e'))
-                wait(10.02)
-                keyrelease(keycodeMap['e'])
-                for i = #pos,1, -1 do
-                    tp(Vector3.new(unpack(pos[i])), 5000)
-                    wait()
-                end
-            end)
-            b:CreateButton('Sair do museu (Fique no meio do museu)', function()
-                local pos = {
-                    {1132.824462890625, 107.8163833618164, 1309.4820556640625},
-                    {1110.1837158203125, 118.41899108886719, 1306.7021484375},
-                    {1088.4345703125, 126.14624786376953, 1311.1881103515625},
-                    {1085.2440185546875, 142.7015838623047, 1314.8292236328125},
-                    {1051.42236328125, 154.09397888183594, 1230.1002197265625},
-                    {1023.6897583007812, 101.81444549560547, 1189.2498779296875},
-                }
-
-                for i,v in pairs(pos) do
-                    tp(Vector3.new(v[1],v[2],v[3]))
-                    wait()
-                end
-            end)
-            b:CreateButton('Sair do power plant', function()
-                local pos = {
-                    {101.39669799804688, -5.338563919067383, 2118.960693359375},
-                    {55.1356201171875, -5.591137886047363, 2094.51611328125},
-                    {16.16367530822754, -6.642032623291016, 2110.04052734375},
-                    {5.4607343673706055, 4.936450004577637, 2123.782470703125},
-                    {27.192514419555664, 6.664810657501221, 2157.064697265625},
-                    {45.34912109375, -6.086098670959473, 2170.0078125},
-                    {63.95834732055664, -5.045591354370117, 2190.177734375},
-                    {50.7077751159668, -5.045591354370117, 2200.8310546875},
-                    {57.530967712402344, 0.13438540697097778, 2210.271484375},
-                    {97.49678802490234, 15.520063400268555, 2259.831787109375},
-                    {88.31095123291016, 26.41103172302246, 2267.13818359375},
-                    {72.95352935791016, 23.09345817565918, 2287.04638671875},
-                    {59.195716857910156, 22.28597640991211, 2297.031005859375},
-                    {32.832035064697266, 21.96160888671875, 2305.760498046875},
-                }
-
-                for i,v in pairs(pos) do
-                    tp(Vector3.new(v[1],v[2],v[3]))
-                    wait()
-                end
-            end)
+            
             
         end                        
         --[[Da hood modded ]] if game.PlaceId == 5602055394 then
