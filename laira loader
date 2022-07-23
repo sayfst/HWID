@@ -6194,7 +6194,8 @@ Notify('Sucess loaded cutscenes creator', 'made by me, '..discord_name, getImage
                             
                             
                             repeat
-                                enterVehicle()
+                                keypress(keycodeMap['e'])
+                                wait(0.1)
                                 keyrelease(keycodeMap['e'])
                                 wait(0.5)
                                 time = time + 0.2
@@ -6368,16 +6369,19 @@ Notify('Sucess loaded cutscenes creator', 'made by me, '..discord_name, getImage
             end, Color3.fromRGB(213, 235, 19))
 
             b:CreateButton('Prison', function()
-                tp(Vector3.new(-1206.1026611328125, 51.30271530151367, -1759.5023193359375))
-                wait()
-                tp(Vector3.new(-1209.57373046875, 58.13632583618164, -1412.40087890625))
-                wait()
-                tp(Vector3.new(-1188.8558349609375, 18.405351638793945, -1395.9959716796875))
-                wait()
-                
+                teleport_path_find(Vector3.new(-1243, 19, -1575))
+                task.wait()
+                tp(Vector3.new(-1243, 37, -1573))
+                task.wait()
+                tp(Vector3.new(-1141, 41, -1412))
+                task.wait()
+                tp(Vector3.new(-1141, 18, -1413))
+                task.wait()                
             end, Color3.fromRGB(213, 235, 19))
 
-            function teleport_path_find(pos_custom)
+            function teleport_path_find(pos_custom, howmuch)
+                howmuch = howmuch or 7
+
                 local Dummy = getCharacter(speaker)
 
                 local Humanoid = Dummy:FindFirstChild('Humanoid')
@@ -6405,8 +6409,8 @@ Notify('Sucess loaded cutscenes creator', 'made by me, '..discord_name, getImage
                         for i = 1,#waypoints do
                             if getHumanoid(speaker).Health ~= 0 then
                                 workspace.Gravity = 0
-                                game:GetService('TweenService'):Create(Dummy.HumanoidRootPart, TweenInfo.new(0.2, Enum.EasingStyle.Linear), {CFrame = CFrame.new(waypoints[i].Position + Vector3.new(0, 7, 0))}):Play()
-                                task.wait(0.2)
+                                game:GetService('TweenService'):Create(Dummy.HumanoidRootPart, TweenInfo.new(0.08, Enum.EasingStyle.Linear), {CFrame = CFrame.new(waypoints[i].Position + Vector3.new(0, howmuch, 0))}):Play()
+                                task.wait(0.08)
                             end
                         end
                         workspace.Gravity = 196.2
@@ -6419,7 +6423,23 @@ Notify('Sucess loaded cutscenes creator', 'made by me, '..discord_name, getImage
             end
             b:CreateButton('Jewlery (Use Delete Lasers, after use this)', function()
                 teleport_path_find(Vector3.new(141.04483032226562, 117.19612884521484, 1303.6583251953125))
-            end)
+            end, Color3.fromRGB(213, 235, 19))
+
+            b:CreateButton('Bank', function()
+                teleport_path_find(Vector3.new(39.37193298339844, 18.64533042907715, 918.6094970703125))
+                task.wait()
+                tp(Vector3.new(36.575130462646484, 18.645341873168945, 912.4008178710938))
+                wait(0.8)
+                tp(Vector3.new(35.91815948486328, 18.645355224609375, 899.9026489257812))
+                task.wait()
+                tp(Vector3.new(21.2589168548584, 18.645305633544922, 861.2755126953125))
+                task.wait()
+                tp(Vector3.new(-1.665765643119812, 18.273168563842773, 863.423095703125))
+                task.wait()
+                getRoot(speaker).CFrame = getRoot(speaker).CFrame + Vector3.new(0, 100, 0)
+                task.wait()
+                tp(Vector3.new(-61.953670501708984, 86.68314361572266, 870.3721313476562))
+            end, Color3.fromRGB(213, 235, 19))
 
 
             b:CreateSpace(35)
@@ -6489,7 +6509,7 @@ Notify('Sucess loaded cutscenes creator', 'made by me, '..discord_name, getImage
 
             local deleteLasers = false
             function delLaser(v)
-                if v.Name == 'BarbedWire' or v.Name == 'Shadow' or v.Name == 'Lasers' or v.Name == 'LasersMoving' or (v.Name == 'InnerModel' and v.Parent.Name == 'Camera')  then
+                if v.Name == 'BarbedWire' or v.Name == 'Shadow' or v.Name == 'Lasers' or v.Name == 'LasersMoving' or (v:IsA('Part') and tostring(v.BrickColor) == 'Dusty Rose')  then
                     local oldParent = v.Parent
                     v.Parent = game:GetService('ReplicatedStorage')
 
@@ -6848,7 +6868,7 @@ Notify('Sucess loaded cutscenes creator', 'made by me, '..discord_name, getImage
             end, roxo)
             local func
             for i,v in pairs(getgc()) do
-                if type(v) == 'function' and not is_synapse_function(v) and getinfo(v).name == 'StopSkydiving' then
+                if type(v) == 'function' and getinfo(v).name == 'StopSkydiving' then
                     func = v
                 end
             end
@@ -6859,7 +6879,7 @@ Notify('Sucess loaded cutscenes creator', 'made by me, '..discord_name, getImage
             b:CreateButton('Start Skydiving', function()
                 local func
                 for i,v in pairs(getgc()) do
-                    if type(v) == 'function' and not is_synapse_function(v) and getinfo(v).name == 'StartSkydiving' then
+                    if type(v) == 'function' and getinfo(v).name == 'StartSkydiving' then
                         func = v
                     end
                 end
