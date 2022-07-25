@@ -14,6 +14,32 @@ function library:CreateWindow()
     local MENUCONFIG = Instance.new("ImageLabel")
     local Maximizareminimizar = Instance.new("TextLabel")
     local CREDITS = Instance.new("TextButton")
+    CREDITS.MouseButton1Click:Connect(function()
+        title = 'Credits\nDesign: Henrique\nScripts: Samu'
+        repeat wait() until game:GetService("Players").LocalPlayer.PlayerGui.NotificationGui ~= nil
+        local sound = Instance.new('Sound', workspace)
+        sound.SoundId = 'rbxassetid://700153902'
+        sound:Play()
+        for i,v in pairs(game.CoreGui:GetChildren()) do
+            if v.Name == 'NotificationGui' then
+                v:Destroy()
+            end
+        end
+        local menu = game:GetService("Players").LocalPlayer.PlayerGui.NotificationGui:Clone()
+        
+        menu.Parent = game.CoreGui
+        menu.Enabled = true
+        spawn(function()
+            for i = 1,#title do
+                menu.ContainerNotification.Message.Text = string.sub(title, 1, i)
+                menu.Sound:Play()
+                wait(0)
+            end
+            wait(1)
+            menu:Destroy()
+            sound:Destroy()
+        end)
+    end)
     local CREDITS_Roundify_7px = Instance.new("ImageLabel")
     local FPSBOOSTER = Instance.new("TextButton")
     local FPSBOOSTER_Roundify_7px = Instance.new("ImageLabel")
@@ -103,7 +129,7 @@ function library:CreateWindow()
     NomeDoJogo.Position = UDim2.new(0.811900198, 0, -0.00269532204, 0)
     NomeDoJogo.Size = UDim2.new(0, 67, 0, 17)
     NomeDoJogo.Font = Enum.Font.SourceSans
-    NomeDoJogo.Text = "JAILBLEAK"
+    NomeDoJogo.Text = game:GetService('MarketplaceService'):GetProductInfo(game.PlaceId).Name
     NomeDoJogo.TextColor3 = Color3.fromRGB(170, 85, 0)
     NomeDoJogo.TextSize = 14.000
     
@@ -172,6 +198,47 @@ function library:CreateWindow()
     FPSBOOSTER.Text = "FPS BOOSTER +"
     FPSBOOSTER.TextColor3 = Color3.fromRGB(85, 255, 255)
     FPSBOOSTER.TextSize = 14.000
+    FPSBOOSTER.MouseButton1Click:Connect(function()
+        workspace:FindFirstChildOfClass('Terrain').WaterWaveSize = 0
+        workspace:FindFirstChildOfClass('Terrain').WaterWaveSpeed = 0
+        workspace:FindFirstChildOfClass('Terrain').WaterReflectance = 0
+        workspace:FindFirstChildOfClass('Terrain').WaterTransparency = 0
+        game:GetService("Lighting").GlobalShadows = false
+        game:GetService("Lighting").FogEnd = 9e9
+        settings().Rendering.QualityLevel = 1
+        for i,v in pairs(game:GetDescendants()) do
+            if v:IsA("Part") or v:IsA("UnionOperation") or v:IsA("MeshPart") or v:IsA("CornerWedgePart") or v:IsA("TrussPart") then
+                v.Material = "Plastic"
+                v.Reflectance = 0
+            elseif v:IsA("Decal") then
+                v.Transparency = 1
+            elseif v:IsA("ParticleEmitter") or v:IsA("Trail") then
+                v.Lifetime = NumberRange.new(0)
+            elseif v:IsA("Explosion") then
+                v.BlastPressure = 1
+                v.BlastRadius = 1
+            end
+        end
+        for i,v in pairs(game:GetService("Lighting"):GetDescendants()) do
+            if v:IsA("BlurEffect") or v:IsA("SunRaysEffect") or v:IsA("ColorCorrectionEffect") or v:IsA("BloomEffect") or v:IsA("DepthOfFieldEffect") then
+                v.Enabled = false
+            end
+        end
+        workspace.DescendantAdded:Connect(function(child)
+            coroutine.wrap(function()
+                if child:IsA('ForceField') then
+                    game:GetService('RunService').Heartbeat:Wait()
+                    child:Destroy()
+                elseif child:IsA('Sparkles') then
+                    game:GetService('RunService').Heartbeat:Wait()
+                    child:Destroy()
+                elseif child:IsA('Smoke') or child:IsA('Fire') then
+                    game:GetService('RunService').Heartbeat:Wait()
+                    child:Destroy()
+                end
+            end)()
+        end)
+    end)
     
     FPSBOOSTER_Roundify_7px.Name = "FPS BOOSTER_Roundify_7px"
     FPSBOOSTER_Roundify_7px.Parent = FPSBOOSTER
@@ -200,6 +267,9 @@ function library:CreateWindow()
     Serverdiscord.Text = "SERVE DISCORD"
     Serverdiscord.TextColor3 = Color3.fromRGB(85, 255, 255)
     Serverdiscord.TextSize = 14.000
+    Serverdiscord.MouseButton1Click:Connect(function()
+        setclipboard('This script dont have a discord server')
+    end)
     
     Serverdiscord_Roundify_7px.Name = "Server discord_Roundify_7px"
     Serverdiscord_Roundify_7px.Parent = Serverdiscord
@@ -243,6 +313,9 @@ function library:CreateWindow()
     KILLROBLOX.Text = "Fechar ROBLOX"
     KILLROBLOX.TextColor3 = Color3.fromRGB(85, 255, 255)
     KILLROBLOX.TextSize = 14.000
+    KILLROBLOX.MouseButton1Click:Connect(function()
+        game:Shutdown()
+    end)
     
     FPS_VALOR.Name = "FPS_VALOR"
     FPS_VALOR.Parent = MENUCONFIG
@@ -256,6 +329,14 @@ function library:CreateWindow()
     FPS_VALOR.Text = ""
     FPS_VALOR.TextColor3 = Color3.fromRGB(255, 255, 255)
     FPS_VALOR.TextSize = 19.000
+    FPS_VALOR.FocusLost:Connect(function(fps)
+        if fps then
+            if (setfpscap) then
+                setfpscap(tonumber(FPS_VALOR.Text))
+
+            end
+        end
+    end)
     
     UICorner_4.Parent = FPS_VALOR
     
@@ -306,6 +387,11 @@ function library:CreateWindow()
     Reverterconfig.Text = "Reverter Config"
     Reverterconfig.TextColor3 = Color3.fromRGB(85, 255, 255)
     Reverterconfig.TextSize = 14.000
+    Reverterconfig.MouseButton1Click:Connect(function()
+        AVALIACAO.Text = ''
+        FPS_VALOR.Text = ''
+        PREFIXO.Text = ''
+    end)
     
     EXECUTOR.Name = "EXECUTOR"
     EXECUTOR.Parent = MENUCONFIG
@@ -314,7 +400,7 @@ function library:CreateWindow()
     EXECUTOR.Position = UDim2.new(-0.0268714279, 0, 0.762803257, 0)
     EXECUTOR.Size = UDim2.new(0, 110, 0, 10)
     EXECUTOR.Font = Enum.Font.SourceSans
-    EXECUTOR.Text = "Executor:"
+    EXECUTOR.Text = "Executor: "..identifyexecutor()
     EXECUTOR.TextColor3 = Color3.fromRGB(85, 255, 255)
     EXECUTOR.TextSize = 14.000
     
@@ -838,8 +924,40 @@ function library:CreateWindow()
         end
         return library_items
     end
+    function library_tabs:Notify(title)
+        if game.PlaceId == 606849621 then
+            repeat wait() until game:GetService("Players").LocalPlayer.PlayerGui.NotificationGui ~= nil
+            local sound = Instance.new('Sound', workspace)
+            sound.SoundId = 'rbxassetid://700153902'
+            sound:Play()
+            for i,v in pairs(game.CoreGui:GetChildren()) do
+                if v.Name == 'NotificationGui' then
+                    v:Destroy()
+                end
+            end
+            local menu = game:GetService("Players").LocalPlayer.PlayerGui.NotificationGui:Clone()
+            
+            menu.Parent = game.CoreGui
+            menu.Enabled = true
+            spawn(function()
+                for i = 1,#title do
+                    menu.ContainerNotification.Message.Text = string.sub(title, 1, i)
+                    menu.Sound:Play()
+                    wait(0)
+                end
+                wait(1)
+                menu:Destroy()
+                sound:Destroy()
+            end)
+        else
+            game.StarterGui:SetCore('SendNotification', {
+                Title = title;
+                Text = '';
+                Duration = 4;
+            })
+        end
+    end
 
     return library_tabs
 end
-
 return library
