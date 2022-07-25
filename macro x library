@@ -1,0 +1,845 @@
+local library = {}
+local speaker = game.Players.LocalPlayer
+function library:CreateWindow()
+    local ScreenGui = Instance.new("ScreenGui")
+    local MENUFARM = Instance.new("Frame")
+    local X = Instance.new("TextButton")
+    local UICorner = Instance.new("UICorner")
+    local UICorner_2 = Instance.new("UICorner")
+    local Titulo = Instance.new("TextLabel")
+    local OPENTABS = Instance.new("Frame")
+    local UIListLayout = Instance.new("UIListLayout")
+    local Tabs = Instance.new("Frame")
+    local NomeDoJogo = Instance.new("TextLabel")
+    local MENUCONFIG = Instance.new("ImageLabel")
+    local Maximizareminimizar = Instance.new("TextLabel")
+    local CREDITS = Instance.new("TextButton")
+    local CREDITS_Roundify_7px = Instance.new("ImageLabel")
+    local FPSBOOSTER = Instance.new("TextButton")
+    local FPSBOOSTER_Roundify_7px = Instance.new("ImageLabel")
+    local Serverdiscord = Instance.new("TextButton")
+    local Serverdiscord_Roundify_7px = Instance.new("ImageLabel")
+    local PREFIXO = Instance.new("TextBox")
+    local UICorner_3 = Instance.new("UICorner")
+    local KILLROBLOX = Instance.new("TextButton")
+    local FPS_VALOR = Instance.new("TextBox")
+    local UICorner_4 = Instance.new("UICorner")
+    local DESTRAVARFPS = Instance.new("TextLabel")
+    local Avaliao = Instance.new("TextLabel")
+    local AVALIACAO = Instance.new("TextBox")
+    local UICorner_5 = Instance.new("UICorner")
+    local Reverterconfig = Instance.new("TextButton")
+    local EXECUTOR = Instance.new("TextLabel")
+    local X_2 = Instance.new("TextButton")
+    local UICorner_6 = Instance.new("UICorner")
+    local MENUPRINCIPAL = Instance.new("ImageLabel")
+    local PLAY = Instance.new("TextButton")
+    local PLAY_Roundify_7px = Instance.new("ImageLabel")
+    local MACROX = Instance.new("TextLabel")
+    local MACROX_Roundify_7px = Instance.new("ImageLabel")
+    local X_3 = Instance.new("TextButton")
+    local X_Roundify_7px = Instance.new("ImageLabel")
+    local ICONECONFIG = Instance.new("ImageButton")
+    
+    ScreenGui.Parent = game.CoreGui
+    
+    MENUFARM.Name = "MENU FARM"
+    MENUFARM.Parent = ScreenGui
+    MENUFARM.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+    MENUFARM.BackgroundTransparency = 0.150
+    MENUFARM.Position = UDim2.new(0.156010225, 0, 0.220184505, 0)
+    MENUFARM.Size = UDim2.new(0, 521, 0, 371)
+    MENUFARM.Visible = false
+    
+    X.Name = "X"
+    X.Parent = MENUFARM
+    X.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
+    X.Position = UDim2.new(0.957773507, 0, 0, 0)
+    X.Size = UDim2.new(0, 22, 0, 17)
+    X.Font = Enum.Font.SourceSans
+    X.Text = "X"
+    X.TextColor3 = Color3.fromRGB(255, 255, 255)
+    X.TextSize = 14.000
+    
+    UICorner.Parent = X
+    
+    UICorner_2.Parent = MENUFARM
+    
+    Titulo.Name = "Titulo"
+    Titulo.Parent = MENUFARM
+    Titulo.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    Titulo.BackgroundTransparency = 1.000
+    Titulo.Position = UDim2.new(0.0115163149, 0, 0, 0)
+    Titulo.Size = UDim2.new(0, 306, 0, 27)
+    Titulo.Font = Enum.Font.RobotoMono
+    Titulo.Text = "MACRO X LOADED"
+    Titulo.TextColor3 = Color3.fromRGB(255, 255, 255)
+    Titulo.TextSize = 14.000
+    Titulo.TextXAlignment = Enum.TextXAlignment.Left
+    
+    OPENTABS.Name = "OPENTABS"
+    OPENTABS.Parent = MENUFARM
+    OPENTABS.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    OPENTABS.BackgroundTransparency = 1.000
+    OPENTABS.Position = UDim2.new(0, 0, 0.105121292, 0)
+    OPENTABS.Size = UDim2.new(0, 135, 0, 331)
+    
+    UIListLayout.Parent = OPENTABS
+    UIListLayout.SortOrder = Enum.SortOrder.LayoutOrder
+    UIListLayout.Padding = UDim.new(0, 5)
+    
+    Tabs.Name = "Tabs"
+    Tabs.Parent = MENUFARM
+    Tabs.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    Tabs.BackgroundTransparency = 1.000
+    Tabs.BorderSizePixel = 0
+    Tabs.Position = UDim2.new(0.272552788, 0, 0.105121292, 0)
+    Tabs.Size = UDim2.new(0, 379, 0, 331)
+    
+    NomeDoJogo.Name = "NomeDoJogo"
+    NomeDoJogo.Parent = MENUFARM
+    NomeDoJogo.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    NomeDoJogo.BackgroundTransparency = 1.000
+    NomeDoJogo.Position = UDim2.new(0.811900198, 0, -0.00269532204, 0)
+    NomeDoJogo.Size = UDim2.new(0, 67, 0, 17)
+    NomeDoJogo.Font = Enum.Font.SourceSans
+    NomeDoJogo.Text = "JAILBLEAK"
+    NomeDoJogo.TextColor3 = Color3.fromRGB(170, 85, 0)
+    NomeDoJogo.TextSize = 14.000
+    
+    MENUCONFIG.Name = "MENU CONFIG"
+    MENUCONFIG.Parent = ScreenGui
+    MENUCONFIG.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+    MENUCONFIG.BackgroundTransparency = 1.000
+    MENUCONFIG.Position = UDim2.new(0.155929253, 0, 0.218611911, 0)
+    MENUCONFIG.Size = UDim2.new(0, 521, 0, 371)
+    MENUCONFIG.Visible = false
+    MENUCONFIG.Image = "rbxassetid://3570695787"
+    MENUCONFIG.ImageColor3 = Color3.fromRGB(0, 0, 0)
+    MENUCONFIG.ImageTransparency = 0.150
+    MENUCONFIG.ScaleType = Enum.ScaleType.Slice
+    MENUCONFIG.SliceCenter = Rect.new(100, 100, 100, 100)
+    MENUCONFIG.SliceScale = 0.150
+    
+    Maximizareminimizar.Name = "Maximizar e minimizar"
+    Maximizareminimizar.Parent = MENUCONFIG
+    Maximizareminimizar.BackgroundColor3 = Color3.fromRGB(85, 170, 255)
+    Maximizareminimizar.BackgroundTransparency = 1.000
+    Maximizareminimizar.Position = UDim2.new(0, 0, 0.196765497, 0)
+    Maximizareminimizar.Size = UDim2.new(0, 278, 0, 50)
+    Maximizareminimizar.Font = Enum.Font.SourceSans
+    Maximizareminimizar.Text = "Escolha o botão de (minimizar e maxímizar) o Menu"
+    Maximizareminimizar.TextColor3 = Color3.fromRGB(85, 255, 255)
+    Maximizareminimizar.TextSize = 14.000
+    
+    CREDITS.Name = "CREDITS"
+    CREDITS.Parent = MENUCONFIG
+    CREDITS.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+    CREDITS.BackgroundTransparency = 1.000
+    CREDITS.BorderSizePixel = 0
+    CREDITS.Position = UDim2.new(0.0614203475, 0, 0.045822084, 0)
+    CREDITS.Size = UDim2.new(0, 136, 0, 33)
+    CREDITS.ZIndex = 2
+    CREDITS.Font = Enum.Font.SourceSans
+    CREDITS.Text = "CREDITS"
+    CREDITS.TextColor3 = Color3.fromRGB(85, 255, 255)
+    CREDITS.TextSize = 14.000
+    
+    CREDITS_Roundify_7px.Name = "CREDITS_Roundify_7px"
+    CREDITS_Roundify_7px.Parent = CREDITS
+    CREDITS_Roundify_7px.Active = true
+    CREDITS_Roundify_7px.AnchorPoint = Vector2.new(0.5, 0.5)
+    CREDITS_Roundify_7px.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    CREDITS_Roundify_7px.BackgroundTransparency = 1.000
+    CREDITS_Roundify_7px.Position = UDim2.new(0.5, 0, 0.5, 0)
+    CREDITS_Roundify_7px.Selectable = true
+    CREDITS_Roundify_7px.Size = UDim2.new(1, 0, 1, 0)
+    CREDITS_Roundify_7px.Image = "rbxassetid://3570695787"
+    CREDITS_Roundify_7px.ImageColor3 = Color3.fromRGB(0, 0, 0)
+    CREDITS_Roundify_7px.ScaleType = Enum.ScaleType.Slice
+    CREDITS_Roundify_7px.SliceCenter = Rect.new(100, 100, 100, 100)
+    CREDITS_Roundify_7px.SliceScale = 0.070
+    
+    FPSBOOSTER.Name = "FPS BOOSTER"
+    FPSBOOSTER.Parent = MENUCONFIG
+    FPSBOOSTER.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+    FPSBOOSTER.BackgroundTransparency = 1.000
+    FPSBOOSTER.BorderSizePixel = 0
+    FPSBOOSTER.Position = UDim2.new(0.671785057, 0, 0.045822084, 0)
+    FPSBOOSTER.Size = UDim2.new(0, 136, 0, 33)
+    FPSBOOSTER.ZIndex = 2
+    FPSBOOSTER.Font = Enum.Font.SourceSans
+    FPSBOOSTER.Text = "FPS BOOSTER +"
+    FPSBOOSTER.TextColor3 = Color3.fromRGB(85, 255, 255)
+    FPSBOOSTER.TextSize = 14.000
+    
+    FPSBOOSTER_Roundify_7px.Name = "FPS BOOSTER_Roundify_7px"
+    FPSBOOSTER_Roundify_7px.Parent = FPSBOOSTER
+    FPSBOOSTER_Roundify_7px.Active = true
+    FPSBOOSTER_Roundify_7px.AnchorPoint = Vector2.new(0.5, 0.5)
+    FPSBOOSTER_Roundify_7px.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    FPSBOOSTER_Roundify_7px.BackgroundTransparency = 1.000
+    FPSBOOSTER_Roundify_7px.Position = UDim2.new(0.5, 0, 0.5, 0)
+    FPSBOOSTER_Roundify_7px.Selectable = true
+    FPSBOOSTER_Roundify_7px.Size = UDim2.new(1, 0, 1, 0)
+    FPSBOOSTER_Roundify_7px.Image = "rbxassetid://3570695787"
+    FPSBOOSTER_Roundify_7px.ImageColor3 = Color3.fromRGB(0, 0, 0)
+    FPSBOOSTER_Roundify_7px.ScaleType = Enum.ScaleType.Slice
+    FPSBOOSTER_Roundify_7px.SliceCenter = Rect.new(100, 100, 100, 100)
+    FPSBOOSTER_Roundify_7px.SliceScale = 0.070
+    
+    Serverdiscord.Name = "Server discord"
+    Serverdiscord.Parent = MENUCONFIG
+    Serverdiscord.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+    Serverdiscord.BackgroundTransparency = 1.000
+    Serverdiscord.BorderSizePixel = 0
+    Serverdiscord.Position = UDim2.new(0.351247579, 0, 0.045822084, 0)
+    Serverdiscord.Size = UDim2.new(0, 136, 0, 33)
+    Serverdiscord.ZIndex = 2
+    Serverdiscord.Font = Enum.Font.SourceSans
+    Serverdiscord.Text = "SERVE DISCORD"
+    Serverdiscord.TextColor3 = Color3.fromRGB(85, 255, 255)
+    Serverdiscord.TextSize = 14.000
+    
+    Serverdiscord_Roundify_7px.Name = "Server discord_Roundify_7px"
+    Serverdiscord_Roundify_7px.Parent = Serverdiscord
+    Serverdiscord_Roundify_7px.Active = true
+    Serverdiscord_Roundify_7px.AnchorPoint = Vector2.new(0.5, 0.5)
+    Serverdiscord_Roundify_7px.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    Serverdiscord_Roundify_7px.BackgroundTransparency = 1.000
+    Serverdiscord_Roundify_7px.Position = UDim2.new(0.5, 0, 0.5, 0)
+    Serverdiscord_Roundify_7px.Selectable = true
+    Serverdiscord_Roundify_7px.Size = UDim2.new(1, 0, 1, 0)
+    Serverdiscord_Roundify_7px.Image = "rbxassetid://3570695787"
+    Serverdiscord_Roundify_7px.ImageColor3 = Color3.fromRGB(0, 0, 0)
+    Serverdiscord_Roundify_7px.ScaleType = Enum.ScaleType.Slice
+    Serverdiscord_Roundify_7px.SliceCenter = Rect.new(100, 100, 100, 100)
+    Serverdiscord_Roundify_7px.SliceScale = 0.070
+    
+    PREFIXO.Name = "PREFIXO"
+    PREFIXO.Parent = MENUCONFIG
+    PREFIXO.BackgroundColor3 = Color3.fromRGB(17, 17, 17)
+    PREFIXO.BorderSizePixel = 0
+    PREFIXO.Position = UDim2.new(0.531669915, 0, 0.196765482, 0)
+    PREFIXO.Size = UDim2.new(0, 200, 0, 50)
+    PREFIXO.ZIndex = 4
+    PREFIXO.Font = Enum.Font.SourceSansBold
+    PREFIXO.PlaceholderText = "Valor"
+    PREFIXO.Text = ""
+    PREFIXO.TextColor3 = Color3.fromRGB(255, 255, 255)
+    PREFIXO.TextSize = 19.000
+    
+    UICorner_3.Parent = PREFIXO
+    
+    KILLROBLOX.Name = "KILL ROBLOX"
+    KILLROBLOX.Parent = MENUCONFIG
+    KILLROBLOX.Active = false
+    KILLROBLOX.BackgroundColor3 = Color3.fromRGB(85, 170, 255)
+    KILLROBLOX.BackgroundTransparency = 1.000
+    KILLROBLOX.Position = UDim2.new(0, 0, 0.382749319, 0)
+    KILLROBLOX.Selectable = false
+    KILLROBLOX.Size = UDim2.new(0, 93, 0, 31)
+    KILLROBLOX.Font = Enum.Font.SourceSans
+    KILLROBLOX.Text = "Fechar ROBLOX"
+    KILLROBLOX.TextColor3 = Color3.fromRGB(85, 255, 255)
+    KILLROBLOX.TextSize = 14.000
+    
+    FPS_VALOR.Name = "FPS_VALOR"
+    FPS_VALOR.Parent = MENUCONFIG
+    FPS_VALOR.BackgroundColor3 = Color3.fromRGB(17, 17, 17)
+    FPS_VALOR.BorderSizePixel = 0
+    FPS_VALOR.Position = UDim2.new(0.161228448, 0, 0.514824808, 0)
+    FPS_VALOR.Size = UDim2.new(0, 73, 0, 21)
+    FPS_VALOR.ZIndex = 4
+    FPS_VALOR.Font = Enum.Font.SourceSansBold
+    FPS_VALOR.PlaceholderText = "Num"
+    FPS_VALOR.Text = ""
+    FPS_VALOR.TextColor3 = Color3.fromRGB(255, 255, 255)
+    FPS_VALOR.TextSize = 19.000
+    
+    UICorner_4.Parent = FPS_VALOR
+    
+    DESTRAVARFPS.Name = "DESTRAVAR FPS"
+    DESTRAVARFPS.Parent = MENUCONFIG
+    DESTRAVARFPS.BackgroundColor3 = Color3.fromRGB(85, 170, 255)
+    DESTRAVARFPS.BackgroundTransparency = 1.000
+    DESTRAVARFPS.Position = UDim2.new(0, 0, 0.506738544, 0)
+    DESTRAVARFPS.Size = UDim2.new(0, 83, 0, 24)
+    DESTRAVARFPS.Font = Enum.Font.SourceSans
+    DESTRAVARFPS.Text = "Destravar FPS"
+    DESTRAVARFPS.TextColor3 = Color3.fromRGB(85, 255, 255)
+    DESTRAVARFPS.TextSize = 14.000
+    
+    Avaliao.Name = "Avaliação"
+    Avaliao.Parent = MENUCONFIG
+    Avaliao.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    Avaliao.BackgroundTransparency = 1.000
+    Avaliao.Position = UDim2.new(0, 0, 0.873315334, 0)
+    Avaliao.Size = UDim2.new(0, 134, 0, 21)
+    Avaliao.Font = Enum.Font.SourceSans
+    Avaliao.Text = "Faça sua avaliação:"
+    Avaliao.TextColor3 = Color3.fromRGB(85, 255, 255)
+    Avaliao.TextSize = 14.000
+    
+    AVALIACAO.Name = "AVALIACAO"
+    AVALIACAO.Parent = MENUCONFIG
+    AVALIACAO.BackgroundColor3 = Color3.fromRGB(17, 17, 17)
+    AVALIACAO.BorderSizePixel = 0
+    AVALIACAO.Position = UDim2.new(0.224568173, 0, 0.873315394, 0)
+    AVALIACAO.Size = UDim2.new(0, 73, 0, 21)
+    AVALIACAO.ZIndex = 4
+    AVALIACAO.Font = Enum.Font.SourceSansBold
+    AVALIACAO.PlaceholderText = "Num"
+    AVALIACAO.Text = "10"
+    AVALIACAO.TextColor3 = Color3.fromRGB(255, 255, 255)
+    AVALIACAO.TextSize = 19.000
+    
+    UICorner_5.Parent = AVALIACAO
+    
+    Reverterconfig.Name = "Reverter config"
+    Reverterconfig.Parent = MENUCONFIG
+    Reverterconfig.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    Reverterconfig.BackgroundTransparency = 1.000
+    Reverterconfig.Position = UDim2.new(0.0172744542, 0, 0.628032386, 0)
+    Reverterconfig.Size = UDim2.new(0, 74, 0, 24)
+    Reverterconfig.Font = Enum.Font.SourceSans
+    Reverterconfig.Text = "Reverter Config"
+    Reverterconfig.TextColor3 = Color3.fromRGB(85, 255, 255)
+    Reverterconfig.TextSize = 14.000
+    
+    EXECUTOR.Name = "EXECUTOR"
+    EXECUTOR.Parent = MENUCONFIG
+    EXECUTOR.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    EXECUTOR.BackgroundTransparency = 1.000
+    EXECUTOR.Position = UDim2.new(-0.0268714279, 0, 0.762803257, 0)
+    EXECUTOR.Size = UDim2.new(0, 110, 0, 10)
+    EXECUTOR.Font = Enum.Font.SourceSans
+    EXECUTOR.Text = "Executor:"
+    EXECUTOR.TextColor3 = Color3.fromRGB(85, 255, 255)
+    EXECUTOR.TextSize = 14.000
+    
+    X_2.Name = "X"
+    X_2.Parent = MENUCONFIG
+    X_2.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
+    X_2.Position = UDim2.new(0.967370391, 0, 0, 0)
+    X_2.Size = UDim2.new(0, 17, 0, 17)
+    X_2.Font = Enum.Font.SourceSans
+    X_2.Text = "X"
+    X_2.TextColor3 = Color3.fromRGB(255, 255, 255)
+    X_2.TextScaled = true
+    X_2.TextSize = 14.000
+    X_2.TextWrapped = true
+    
+    UICorner_6.CornerRadius = UDim.new(0, 4)
+    UICorner_6.Parent = X_2
+    
+    MENUPRINCIPAL.Name = "MENU PRINCIPAL"
+    MENUPRINCIPAL.Parent = ScreenGui
+    MENUPRINCIPAL.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+    MENUPRINCIPAL.BackgroundTransparency = 1.000
+    MENUPRINCIPAL.Position = UDim2.new(0.15601024, 0, 0.241911501, 0)
+    MENUPRINCIPAL.Size = UDim2.new(0, 521, 0, 371)
+    MENUPRINCIPAL.Image = "rbxassetid://3570695787"
+    MENUPRINCIPAL.ImageColor3 = Color3.fromRGB(0, 0, 0)
+    MENUPRINCIPAL.ImageTransparency = 0.150
+    MENUPRINCIPAL.ScaleType = Enum.ScaleType.Slice
+    MENUPRINCIPAL.SliceCenter = Rect.new(100, 100, 100, 100)
+    MENUPRINCIPAL.SliceScale = 0.070
+    
+    PLAY.Name = "PLAY"
+    PLAY.Parent = MENUPRINCIPAL
+    PLAY.BackgroundColor3 = Color3.fromRGB(170, 0, 0)
+    PLAY.BackgroundTransparency = 1.000
+    PLAY.BorderSizePixel = 0
+    PLAY.Position = UDim2.new(0.332053751, 0, 0.727762818, 0)
+    PLAY.Size = UDim2.new(0, 174, 0, 40)
+    PLAY.ZIndex = 5
+    PLAY.Font = Enum.Font.SourceSansBold
+    PLAY.Text = "PLAY"
+    PLAY.TextColor3 = Color3.fromRGB(255, 255, 255)
+    PLAY.TextSize = 14.000
+    
+    PLAY_Roundify_7px.Name = "PLAY_Roundify_7px"
+    PLAY_Roundify_7px.Parent = PLAY
+    PLAY_Roundify_7px.Active = true
+    PLAY_Roundify_7px.AnchorPoint = Vector2.new(0.5, 0.5)
+    PLAY_Roundify_7px.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    PLAY_Roundify_7px.BackgroundTransparency = 1.000
+    PLAY_Roundify_7px.Position = UDim2.new(0.5, 0, 0.5, 0)
+    PLAY_Roundify_7px.Selectable = true
+    PLAY_Roundify_7px.Size = UDim2.new(1, 0, 1, 0)
+    PLAY_Roundify_7px.ZIndex = 4
+    PLAY_Roundify_7px.Image = "rbxassetid://3570695787"
+    PLAY_Roundify_7px.ImageColor3 = Color3.fromRGB(170, 0, 0)
+    PLAY_Roundify_7px.ScaleType = Enum.ScaleType.Slice
+    PLAY_Roundify_7px.SliceCenter = Rect.new(100, 100, 100, 100)
+    PLAY_Roundify_7px.SliceScale = 0.070
+    
+    MACROX.Name = "MACRO X"
+    MACROX.Parent = MENUPRINCIPAL
+    MACROX.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    MACROX.BackgroundTransparency = 1.000
+    MACROX.BorderSizePixel = 0
+    MACROX.Position = UDim2.new(4.65661287e-10, 0, 0.0781671107, 0)
+    MACROX.Size = UDim2.new(0, 521, 0, 196)
+    MACROX.Font = Enum.Font.SourceSansBold
+    MACROX.Text = "MACRO X"
+    MACROX.TextColor3 = Color3.fromRGB(255, 255, 255)
+    MACROX.TextScaled = true
+    MACROX.TextSize = 100.000
+    MACROX.TextWrapped = true
+    
+    MACROX_Roundify_7px.Name = "MACRO X_Roundify_7px"
+    MACROX_Roundify_7px.Parent = MACROX
+    MACROX_Roundify_7px.AnchorPoint = Vector2.new(0.5, 0.5)
+    MACROX_Roundify_7px.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    MACROX_Roundify_7px.BackgroundTransparency = 1.000
+    MACROX_Roundify_7px.Position = UDim2.new(0.5, 0, 0.5, 0)
+    MACROX_Roundify_7px.Size = UDim2.new(1, 0, 1, 0)
+    MACROX_Roundify_7px.Image = "rbxassetid://3570695787"
+    MACROX_Roundify_7px.ImageTransparency = 1.000
+    MACROX_Roundify_7px.ScaleType = Enum.ScaleType.Slice
+    MACROX_Roundify_7px.SliceCenter = Rect.new(100, 100, 100, 100)
+    MACROX_Roundify_7px.SliceScale = 0.070
+    
+    X_3.Name = "X"
+    X_3.Parent = MENUPRINCIPAL
+    X_3.BackgroundColor3 = Color3.fromRGB(170, 0, 0)
+    X_3.BackgroundTransparency = 1.000
+    X_3.BorderSizePixel = 0
+    X_3.Position = UDim2.new(0.957773566, 0, 0, 0)
+    X_3.Size = UDim2.new(0, 22, 0, 17)
+    X_3.ZIndex = 4
+    X_3.Font = Enum.Font.SourceSans
+    X_3.Text = "X"
+    X_3.TextColor3 = Color3.fromRGB(255, 255, 255)
+    X_3.TextSize = 14.000
+    
+    X_Roundify_7px.Name = "X_Roundify_7px"
+    X_Roundify_7px.Parent = X_3
+    X_Roundify_7px.Active = true
+    X_Roundify_7px.AnchorPoint = Vector2.new(0.5, 0.5)
+    X_Roundify_7px.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    X_Roundify_7px.BackgroundTransparency = 1.000
+    X_Roundify_7px.Position = UDim2.new(0.5, 0, 0.5, 0)
+    X_Roundify_7px.Selectable = true
+    X_Roundify_7px.Size = UDim2.new(1, 0, 1, 0)
+    X_Roundify_7px.Image = "rbxassetid://3570695787"
+    X_Roundify_7px.ImageColor3 = Color3.fromRGB(170, 0, 0)
+    X_Roundify_7px.ScaleType = Enum.ScaleType.Slice
+    X_Roundify_7px.SliceCenter = Rect.new(100, 100, 100, 100)
+    X_Roundify_7px.SliceScale = 0.070
+    
+    ICONECONFIG.Name = "ICONE CONFIG"
+    ICONECONFIG.Parent = MENUPRINCIPAL
+    ICONECONFIG.BackgroundTransparency = 1.000
+    ICONECONFIG.LayoutOrder = 6
+    ICONECONFIG.Position = UDim2.new(0.956813931, 0, 0.944743931, 0)
+    ICONECONFIG.Size = UDim2.new(0, 20, 0, 20)
+    ICONECONFIG.ZIndex = 2
+    ICONECONFIG.Image = "rbxassetid://3926307971"
+    ICONECONFIG.ImageRectOffset = Vector2.new(324, 124)
+    ICONECONFIG.ImageRectSize = Vector2.new(36, 36)
+    
+    -- Scripts:
+    
+    local function YWIZBDA_fake_script() -- MENUFARM.LocalScript 
+        local script = Instance.new('LocalScript', MENUFARM)
+    
+        script.Parent.X.MouseButton1Click:Connect(function()
+            script.Parent.Parent["MENU FARM"].Visible = false
+            script.Parent.Parent["MENU PRINCIPAL"].Visible = true
+        end)
+    end
+    coroutine.wrap(YWIZBDA_fake_script)()
+    local function YAZE_fake_script() -- PREFIXO.SCRIPT MENU 
+        local script = Instance.new('LocalScript', PREFIXO)
+    
+        game:GetService('UserInputService').InputBegan:Connect(function(input, ischat)
+            if ischat then
+                return
+            end
+            if input.KeyCode.Name:lower() == script.Parent.Text:lower() then
+                local menu = script.Parent.Parent.Parent
+                
+                menu.Enabled = not menu.Enabled
+            end
+        end)
+    end
+    coroutine.wrap(YAZE_fake_script)()
+    local function ZRQHJ_fake_script() -- FPS_VALOR.SCRIPT MENU 
+        local script = Instance.new('LocalScript', FPS_VALOR)
+    
+        game:GetService('UserInputService').InputBegan:Connect(function(input, ischat)
+            if ischat then
+                return
+            end
+            if input.KeyCode.Name:lower() == script.Parent.Text:lower() then
+                local menu = script.Parent.Parent.Parent
+                
+                menu.Enabled = not menu.Enabled
+            end
+        end)
+    end
+    coroutine.wrap(ZRQHJ_fake_script)()
+    local function FFOKYNN_fake_script() -- AVALIACAO.SCRIPT MENU 
+        local script = Instance.new('LocalScript', AVALIACAO)
+    
+        game:GetService('UserInputService').InputBegan:Connect(function(input, ischat)
+            if ischat then
+                return
+            end
+            if input.KeyCode.Name:lower() == script.Parent.Text:lower() then
+                local menu = script.Parent.Parent.Parent
+                
+                menu.Enabled = not menu.Enabled
+            end
+        end)
+    end
+    coroutine.wrap(FFOKYNN_fake_script)()
+    local function CNZJ_fake_script() -- MENUCONFIG.LocalScript 
+        local script = Instance.new('LocalScript', MENUCONFIG)
+    
+        script.Parent.X.MouseButton1Click:Connect(function()
+            script.Parent.Parent["MENU CONFIG"].Visible = false
+            script.Parent.Parent["MENU PRINCIPAL"].Visible = true
+        end)
+    end
+    coroutine.wrap(CNZJ_fake_script)()
+
+    local function MGMAJQW_fake_script() -- MENUCONFIG.LocalScript 
+        local script = Instance.new('LocalScript', MENUCONFIG)
+    
+        script.Parent.X.MouseButton1Click:Connect(function()
+            script.Parent.Parent["MENU CONFIG"].Visible = false
+            script.Parent.Parent["MENU PRINCIPAL"].Visible = true
+        end)
+    end
+    coroutine.wrap(MGMAJQW_fake_script)()
+    local function TBEUDR_fake_script() -- MENUCONFIG.LocalScript 
+        local script = Instance.new('LocalScript', MENUPRINCIPAL)
+    
+        script.Parent["ICONE CONFIG"].MouseButton1Click:Connect(function()
+            script.Parent.Parent["MENU CONFIG"].Visible = true
+            script.Parent.Parent["MENU PRINCIPAL"].Visible = false
+        end)
+        
+    end
+    coroutine.wrap(TBEUDR_fake_script)()
+    local function GPVVHDN_fake_script() -- MENUPRINCIPAL.SCRIPT X 
+        local script = Instance.new('LocalScript', MENUPRINCIPAL)
+    
+        script.Parent.X.MouseButton1Click:Connect(function(_)
+            script.Parent.Parent["MENU PRINCIPAL"].Visible = false
+        end)
+    end
+    coroutine.wrap(GPVVHDN_fake_script)()
+    local function NHKRG_fake_script() -- MENUPRINCIPAL.LocalScript 
+        local script = Instance.new('LocalScript', MENUPRINCIPAL)
+    
+        script.Parent.PLAY.MouseButton1Click:Connect(function()
+            script.Parent.Parent["MENU FARM"].Visible =true
+            script.Parent.Parent["MENU PRINCIPAL"].Visible = false
+        end)
+    end
+    coroutine.wrap(NHKRG_fake_script)()
+    local function HQVGDE_fake_script() -- MENUPRINCIPAL.LocalScript 
+        local script = Instance.new('LocalScript', MENUPRINCIPAL)
+    
+        script.Parent["ICONE CONFIG"].MouseButton1Click:Connect(function()
+            script.Parent.Visible = false
+            script.Parent.Parent["MENU CONFIG"].Visible = true
+        end)
+    end
+    coroutine.wrap(HQVGDE_fake_script)()
+    local function MZFHGVI_fake_script() -- ScreenGui.LocalScript 
+        local script = Instance.new('LocalScript', ScreenGui)
+    
+        game:GetService('RunService').Stepped:Connect(function(_, step)
+            local sc = script.Parent
+            
+            local principal = sc["MENU PRINCIPAL"]
+            principal.Active = true
+            
+            principal.Draggable = true
+            sc["MENU FARM"].Position = principal.Position
+            sc["MENU CONFIG"].Position = principal.Position
+        end)
+    end
+    coroutine.wrap(MZFHGVI_fake_script)()
+    
+    local library_tabs = {}
+
+    function library_tabs:CreateTab(title)
+        local Tab = Instance.new("ScrollingFrame")
+        local UIListLayout = Instance.new("UIListLayout")
+        local TextButton = Instance.new("TextButton")
+        local UICorner = Instance.new("UICorner")
+
+
+        Tab.Name = "Tab"
+        Tab.Parent = Tabs
+        Tab.Active = true
+        Tab.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+        Tab.BackgroundTransparency = 1.000
+        Tab.Size = UDim2.new(1, 0, 1, 0)
+        Tab.Visible = false
+
+        UIListLayout.Parent = Tab
+        UIListLayout.SortOrder = Enum.SortOrder.LayoutOrder
+        UIListLayout.Padding = UDim.new(0, 5)
+
+        
+
+
+
+        TextButton.Parent = OPENTABS
+        TextButton.BackgroundColor3 = Color3.fromRGB(34, 34, 34)
+        TextButton.BackgroundTransparency = 0.150
+        TextButton.Size = UDim2.new(0, 135, 0, 33)
+        TextButton.Font = Enum.Font.SourceSans
+        TextButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+        TextButton.TextSize = 14.000
+        TextButton.Text = title
+        TextButton.MouseButton1Click:Connect(function()
+            for i,v in pairs(Tabs:GetChildren()) do
+                if v.ClassName == 'ScrollingFrame' then
+                    v.Visible = false
+                end
+            end
+            Tab.Visible = true
+        end)
+
+        UICorner.Parent = TextButton
+
+        local library_items = {}
+
+        function library_items:CreateButton(title, callback)
+            -- Gui to Lua
+            -- Version: 3.2
+
+            -- Instances:
+
+            local Botao = Instance.new("TextButton")
+            local UICorner = Instance.new("UICorner")
+
+            --Properties:
+
+            Botao.Name = "Botao"
+            Botao.Parent = Tab
+            Botao.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
+            Botao.BorderSizePixel = 0
+            Botao.Position = UDim2.new(0, 0, -9.21981211e-08, 0)
+            Botao.Size = UDim2.new(0, 357, 0, 27)
+            Botao.Font = Enum.Font.SourceSans
+            Botao.TextColor3 = Color3.fromRGB(255, 255, 255)
+            Botao.TextSize = 17.000
+            Botao.Text = title
+            Botao.TextXAlignment = Enum.TextXAlignment.Left
+            Botao.MouseButton1Click:Connect(function()
+                pcall(callback, Botao)
+            end)
+            UICorner.Parent = Botao
+        end
+        function library_items:CreateTextLabel(title)
+            -- Gui to Lua
+            -- Version: 3.2
+
+            -- Instances:
+
+            local Label = Instance.new("TextLabel")
+            local UICorner = Instance.new("UICorner")
+
+
+
+            Label.Name = "Label"
+            Label.Parent = Tab
+            Label.Active = true
+            Label.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
+            Label.BackgroundTransparency = 1.000
+            Label.BorderSizePixel = 0
+            Label.Position = UDim2.new(0, 0, 0.311178148, 0)
+            Label.Selectable = true
+            Label.Size = UDim2.new(0, 357, 0, 37)
+            Label.Font = Enum.Font.SourceSans
+            Label.Text = title.." [Label]"
+            Label.TextColor3 = Color3.fromRGB(255, 255, 255)
+            Label.TextSize = 17.000
+            Label.TextXAlignment = Enum.TextXAlignment.Left
+            
+            UICorner.Parent = Label
+
+            return Label
+        end
+        function library_items:CreateToggle(title, callback)
+            local toggled = false
+
+            -- Gui to Lua
+            -- Version: 3.2
+
+            -- Instances:
+
+            local Toggle = Instance.new("TextButton")
+            local Background = Instance.new("Frame")
+            local UICorner = Instance.new("UICorner")
+            local Togglado = Instance.new("Frame")
+            local UICorner_2 = Instance.new("UICorner")
+            local UICorner_3 = Instance.new("UICorner")
+
+            --Properties:
+
+            Toggle.Name = "Toggle"
+            Toggle.Parent = Tab
+            Toggle.Active = true
+            Toggle.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
+            Toggle.BorderSizePixel = 0
+            Toggle.Position = UDim2.new(0, 0, 0.0815709084, 0)
+            Toggle.Selectable = true
+            Toggle.Size = UDim2.new(0, 357, 0, 32)
+            Toggle.Font = Enum.Font.SourceSans
+            Toggle.Text = title
+            Toggle.TextColor3 = Color3.fromRGB(255, 255, 255)
+            Toggle.TextSize = 17.000
+            Toggle.TextXAlignment = Enum.TextXAlignment.Left
+
+            Background.Name = "Background"
+            Background.Parent = Toggle
+            Background.AnchorPoint = Vector2.new(0.5, 0.5)
+            Background.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+            Background.BorderSizePixel = 0
+            Background.Position = UDim2.new(0.910000026, 0, 0.5, 0)
+            Background.Size = UDim2.new(0, 45, 0, 16)
+
+            UICorner.CornerRadius = UDim.new(0, 4)
+            UICorner.Parent = Background
+
+            Togglado.Name = "Togglado"
+            Togglado.Parent = Background
+            Togglado.AnchorPoint = Vector2.new(0.5, 0.5)
+            Togglado.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
+            Togglado.Position = UDim2.new(0.4, 0, 0.5, 0)
+            Togglado.Size = UDim2.new(0, 30, 0, 10)
+
+            UICorner_2.CornerRadius = UDim.new(0, 4)
+            UICorner_2.Parent = Togglado
+
+            UICorner_3.Parent = Toggle
+
+            Toggle.MouseButton1Click:Connect(function()
+                toggled = not toggled
+                local ts = game:GetService('TweenService')
+                local tw = TweenInfo.new(0.5, Enum.EasingStyle.Quart)
+                if toggled == true then
+                    ts:Create(Togglado, tw, {BackgroundColor3 = Color3.fromRGB(0, 255, 0)}):Play()
+                    ts:Create(Togglado, tw, {Position = UDim2.new(0.6, 0, 0.5, 0)}):Play()
+                else
+                    ts:Create(Togglado, tw, {BackgroundColor3 = Color3.fromRGB(255, 0, 0)}):Play()
+                    ts:Create(Togglado, tw, {Position = UDim2.new(0.4, 0, 0.5, 0)}):Play()
+                end
+                pcall(callback, toggled)
+            end)
+        end
+        function library_items:CreateSlider(title, minvalue, maxvalue, callback)
+            -- Gui to Lua
+            -- Version: 3.2
+
+            -- Instances:
+
+            local Slider = Instance.new("TextButton")
+            local UICorner = Instance.new("UICorner")
+            local SliderBackground = Instance.new("Frame")
+            local SliderButton = Instance.new("Frame")
+            local min_texto = Instance.new("TextLabel")
+            local max_texto = Instance.new("TextLabel")
+
+            --Properties:
+
+            Slider.Name = "Slider"
+            Slider.Parent = Tab
+            Slider.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
+            Slider.BorderSizePixel = 0
+            Slider.Position = UDim2.new(0, 0, 0.208459124, 0)
+            Slider.Size = UDim2.new(0, 357, 0, 29)
+            Slider.Font = Enum.Font.SourceSans
+            Slider.TextColor3 = Color3.fromRGB(255, 255, 255)
+            Slider.TextSize = 17.000
+            Slider.TextXAlignment = Enum.TextXAlignment.Left
+            Slider.Text = title
+
+            UICorner.Parent = Slider
+
+            SliderBackground.Name = "SliderBackground"
+            SliderBackground.Parent = Slider
+            SliderBackground.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+            SliderBackground.BorderSizePixel = 0
+            SliderBackground.Position = UDim2.new(0.204481795, 0, 0.482758641, 0)
+            SliderBackground.Size = UDim2.new(0, 261, 0, 3)
+
+            SliderButton.Name = "SliderButton"
+            SliderButton.Parent = SliderBackground
+            SliderButton.BackgroundColor3 = Color3.fromRGB(100, 255, 34)
+            SliderButton.BorderSizePixel = 0
+            SliderButton.Size = UDim2.new(0, 0, 0, 3)
+
+            min_texto.Name = "min_texto"
+            min_texto.Parent = Slider
+            min_texto.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+            min_texto.BackgroundTransparency = 1.000
+            min_texto.Position = UDim2.new(0.137254909, 0, 0.241379306, 0)
+            min_texto.Size = UDim2.new(0, 24, 0, 17)
+            min_texto.Font = Enum.Font.SourceSans
+            min_texto.Text = minvalue
+            min_texto.TextColor3 = Color3.fromRGB(255, 255, 255)
+            min_texto.TextScaled = true
+            min_texto.TextSize = 14.000
+            min_texto.TextWrapped = true
+
+            max_texto.Name = "max_texto"
+            max_texto.Parent = Slider
+            max_texto.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+            max_texto.BackgroundTransparency = 1.000
+            max_texto.Position = UDim2.new(0.932773113, 0, 0.241379306, 0)
+            max_texto.Size = UDim2.new(0, 24, 0, 17)
+            max_texto.Font = Enum.Font.SourceSans
+            max_texto.Text = maxvalue
+            max_texto.TextColor3 = Color3.fromRGB(255, 255, 255)
+            max_texto.TextScaled = true
+            max_texto.TextSize = 14.000
+            max_texto.TextWrapped = true
+            local num = 261
+            Slider.MouseButton1Down:Connect(function()
+                
+                mousemove = speaker:GetMouse().Move:Connect(function()                 
+                    value = math.floor((((tonumber(maxvalue) - tonumber(minvalue)) / num) * SliderButton.AbsoluteSize.X) or 0)
+                    local mouse = speaker:GetMouse()
+                    min_texto.Text = tostring(value)
+                    
+                    SliderButton.Size = UDim2.new(0, math.clamp(mouse.X - SliderBackground.AbsoluteSize.X, 0, num), 1, 0)
+                    task.spawn(function()
+                        pcall(callback, value)
+                    end)
+                end)
+
+                uisended = game:GetService('UserInputService').InputEnded:Connect(function(input)
+                    if input.UserInputType == Enum.UserInputType.MouseButton1 then
+                        mousemove:Disconnect()
+                        uisended:Disconnect()
+                        value = math.floor((((tonumber(maxvalue) - tonumber(minvalue)) / num) * SliderButton.AbsoluteSize.X) or 0)
+                        local mouse = speaker:GetMouse()
+                        min_texto.Text = tostring(value)
+                        
+                        SliderButton.Size = UDim2.new(0, math.clamp(mouse.X - SliderBackground.AbsoluteSize.X, 0, num), 1, 0)
+                        task.spawn(function()
+                            pcall(callback, value)
+                        end)
+                    end
+                end)
+            end)
+        end
+        return library_items
+    end
+
+    return library_tabs
+end
+
+return library
