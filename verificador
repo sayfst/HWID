@@ -1,0 +1,7 @@
+local scriptTable = {
+
+}[game.PlaceId]
+
+if scriptTable then
+  loadstring(game:HttpGet(scriptTable))()
+end
