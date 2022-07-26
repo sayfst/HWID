@@ -748,7 +748,7 @@ function library:CreateWindow()
             Label.Selectable = true
             Label.Size = UDim2.new(0, 357, 0, 37)
             Label.Font = Enum.Font.SourceSans
-            Label.Text = title.." [Label]"
+            Label.Text = title
             Label.TextColor3 = Color3.fromRGB(255, 255, 255)
             Label.TextSize = 17.000
             Label.TextXAlignment = Enum.TextXAlignment.Left
