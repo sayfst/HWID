@@ -1,3 +1,4 @@
+
 local library = {}
 local speaker = game.Players.LocalPlayer
 function library:CreateWindow()
@@ -648,7 +649,11 @@ function library:CreateWindow()
             principal.Active = true
             
             principal.Draggable = true
-            sc["MENU FARM"].Position = principal.Position
+            sc['MENU FARM'].Active = true
+            sc['MENU FARM'].Draggable = true
+            if sc['MENU FARM'].Visible == false then
+                sc["MENU FARM"].Position = principal.Position
+            end
             sc["MENU CONFIG"].Position = principal.Position
         end)
     end
